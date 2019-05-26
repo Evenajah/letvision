@@ -13,9 +13,7 @@ export default class FormSignin extends React.Component {
         //setState
         this.state={
             fontLoaded: false,
-            username: '',
-            password:'',
-            email:''
+            username : ''
         }
 
         this.loginCheck = this.signupCheck.bind(this);
