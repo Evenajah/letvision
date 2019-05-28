@@ -1,131 +1,133 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Font } from 'expo';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, YellowBox, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
-
-
+import * as firebase from 'firebase';
 
 export default class FormSignin extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
+        YellowBox.ignoreWarnings(['Setting a timer']);
+
         //setState
-        this.state={
-            fontLoaded: false,
-            username : ''
+        this.state = {
+            passwordConfirm: '',
+            password: '',
+            email: '',
+
         }
 
-        this.loginCheck = this.signupCheck.bind(this);
+        //bind func
+
     }
 
 
+    onSignupPress = () => {
 
-    async componentDidMount() {
-        await Font.loadAsync({
-            'Kanit-Light': require('../../assets/fonts/Kanit-Light.ttf')
-        });
+        if (this.state.password !== this.state.passwordConfirm) {
+            Alert.alert("Passwords do not match");
+            return;
+        }
 
-        this.setState({ fontLoaded: true });
-    }
-
-
-    signupCheck(){
-
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                Alert.alert("Success!","Succesfully Signup");
+            }, (error) => {
+                Alert.alert(error.message);
+            });
     }
 
     render() {
+
         return (
+
             <View style={styles.container}>
 
 
                 {/*InputForm*/}
-                {
-                    //โหลดฟ้อน
-                    this.state.fontLoaded ? (
 
-                        <View>
+                <View>
 
-                            <View style={styles.viewInput}>
-                                <Icon
-                                    name='user'
-                                    type='font-awesome'
-                                    color='#ffffff'
-                                    size={25}
-                                    paddingHorizontal={5}
+                    <View style={styles.viewInput}>
+                        <Icon
+                            name='envelope'
+                            type='font-awesome'
+                            color='#ffffff'
+                            size={20}
+                            paddingHorizontal={5}
 
-                                />
-                                <TextInput style={styles.inputBox}
-                                    underlineColorAndroid='#ffffff'
-                                    placeholder='Username'
-                                    placeholderTextColor='#ffffff'
-                                    
-                                    onChangeText={(text) => this.setState({username: text})}
-                                />
-                            </View>
+                        />
+                        <TextInput style={styles.inputBox}
+                            underlineColorAndroid='#ffffff'
+                            placeholder='Email'
+                            placeholderTextColor='#ffffff'
+                            onChangeText={email => this.setState({ email })}
+                        />
+                    </View>
 
 
 
-                            <View style={styles.viewInput}>
-                                <Icon
-                                    name='lock'
-                                    type='font-awesome'
-                                    color='#ffffff'
-                                    size={25}
-                                    paddingHorizontal={5}
+                    <View style={styles.viewInput}>
+                        <Icon
+                            name='lock'
+                            type='font-awesome'
+                            color='#ffffff'
+                            size={25}
+                            paddingHorizontal={5}
 
-                                />
-                                <TextInput style={styles.inputBox}
-                                    placeholder='Password'
-                                    underlineColorAndroid='#ffffff'
-                                    placeholderTextColor='#ffffff'
-                                    secureTextEntry={true}
-                                />
-                            </View>
-
-                           
-                            <View style={styles.viewInput}>
-                                <Icon
-                                    name='envelope'
-                                    type='font-awesome'
-                                    color='#ffffff'
-                                    size={20}
-                                    paddingHorizontal={5}
-
-                                />
-                                <TextInput style={styles.inputBox}
-                                    placeholder='Email'
-                                    underlineColorAndroid='#ffffff'
-                                    placeholderTextColor='#ffffff'
-                                    textContentType='emailAddress'
-                                />
-                            </View>
+                        />
+                        <TextInput style={styles.inputBox}
+                            placeholder='Password'
+                            underlineColorAndroid='#ffffff'
+                            placeholderTextColor='#ffffff'
+                            secureTextEntry={true}
+                            onChangeText={password => this.setState({ password })}
+                        />
+                    </View>
 
 
-                            <Text>
-                                {"\n"}
-                            </Text>
+                    <View style={styles.viewInput}>
+                        <Icon
+                            name='check-circle'
+                            type='font-awesome'
+                            color='#ffffff'
+                            size={20}
+                            paddingHorizontal={5}
 
-                            <TouchableOpacity style={styles.button}>
-                                {/*ICON*/}
-                                <Icon
-                                    name='user-plus'
-                                    type='font-awesome'
-                                    color='#ffffff'
-                                    size={20}
-                                    paddingHorizontal={7}
-                                />
+                        />
+                        <TextInput style={styles.inputBox}
+                            placeholder='Confirm Password'
+                            underlineColorAndroid='#ffffff'
+                            placeholderTextColor='#ffffff'
+                            textContentType='emailAddress'
+                            secureTextEntry={true}
+                            onChangeText={passwordConfirm => this.setState({ passwordConfirm })}
+                        />
+                    </View>
 
-                                <Text style={styles.buttonText}>
-                                    {this.props.type}
+
+                    <Text>
+                        {"\n"}
+                    </Text>
+
+                    <TouchableOpacity onPress={this.onSignupPress} style={styles.button}  >
+                        {/*ICON*/}
+                        <Icon
+                            name='user-plus'
+                            type='font-awesome'
+                            color='#ffffff'
+                            size={20}
+                            paddingHorizontal={7}
+                        />
+
+                        <Text style={styles.buttonText}>
+                            สมัครสมาชิก
                                 </Text>
 
+                    </TouchableOpacity>
 
-                            </TouchableOpacity>
-                        </View>
-
-                    ) : null
-                }
+                </View>
 
             </View>
         );
@@ -170,5 +172,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+
+
 });
