@@ -25,7 +25,7 @@ export default class Form extends React.Component {
 
     onLoginPress = () => {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => { }, (error) => { Alert.alert(error.message); });
+            .then(() => { }, (error) => { Alert.alert("Warning!",error.message); });
     }
 
 

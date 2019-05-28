@@ -34,7 +34,7 @@ export default class FormSignin extends React.Component {
             .then(() => {
                 Alert.alert("Success!","Succesfully Signup");
             }, (error) => {
-                Alert.alert(error.message);
+                Alert.alert("Warning!",error.message);
             });
     }
 
