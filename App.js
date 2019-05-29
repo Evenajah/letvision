@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, ImageBackground } from 'react-native'
 import { AppLoading, Font } from 'expo';
-import { Icon } from 'react-native-elements';
 
 //import Component
 import Route from './src/Route'
@@ -24,7 +23,10 @@ export default class App extends React.Component {
     }
 
 
-    if (!firebase.apps.length) { firebase.initializeApp(ApiKeys.FirebaseConfig); }
+    if (!firebase.apps.length) { 
+      firebase.initializeApp(ApiKeys.FirebaseConfig); 
+    }
+    
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
 
   }
