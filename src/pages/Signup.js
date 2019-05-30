@@ -17,18 +17,19 @@ export default class Signup extends React.Component {
     loginPage = () => {
 
         //reset navigationStack
-        var navActions = StackActions.reset({
+        // var navActions = StackActions.reset({
 
-            index: 0,
+        //     index: 0,
 
-            actions: [NavigationActions.navigate({
-                routeName: "Login"
+        //     actions: [NavigationActions.navigate({
+        //         routeName: "Login"
 
-            })]
+        //     })]
 
-        });
+        // });
 
-        this.props.navigation.dispatch(navActions);
+        // this.props.navigation.dispatch(navActions);
+        this.props.navigation.navigate('Login');
     }
 
 

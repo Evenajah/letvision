@@ -16,17 +16,17 @@ export default class Login extends React.Component {
   //Navigate
   signupPage = () => {
 
-    //reset navigationStack
-    var navActions = StackActions.reset({
+    // //reset navigationStack
+    // var navActions = StackActions.reset({
 
-      index: 0,
+    //   index: 0,
 
-      actions: [NavigationActions.navigate({
-        routeName: "Signup"
-      })]
-    });
+    //   actions: [NavigationActions.navigate({
+    //     routeName: "Signup"
+    //   })]
+    // });
 
-    this.props.navigation.dispatch(navActions);
+    this.props.navigation.navigate('Signup');
 
   }
 
