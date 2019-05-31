@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Font } from 'expo';
 import { Icon } from 'react-native-elements';
-import { StackActions, NavigationActions } from 'react-navigation';
 
 //import component
 import Logo from '../component/Logo';
 import Form from '../component/Form';
 import Footer from '../component/Footer';
+
+//stylesheet
+import styles from '../styles';
 
 
 export default class Login extends React.Component {
@@ -33,7 +34,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerSplash}>
         <Logo />
         <Form type="เข้าสู่ระบบ" />
 
@@ -67,30 +68,3 @@ export default class Login extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#CD5C5C',
-  },
-  signupContext: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 16
-  },
-
-  flexIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  signupText: {
-    textDecorationLine: 'underline',
-    fontFamily: 'Kanit-Light',
-    color: '#DCDCDC',
-    fontSize: 14
-  },
-
-});

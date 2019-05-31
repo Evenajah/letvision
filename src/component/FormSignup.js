@@ -18,8 +18,6 @@ export default class FormSignin extends React.Component {
             passwordConfirm: '',
             password: '',
             email: '',
-            username:''
-
         }
 
         //bind func
@@ -44,7 +42,6 @@ export default class FormSignin extends React.Component {
                     .ref('/users/')
                     .push({
                         email: this.state.email,
-                        username: this.state.username,
                         account_type : "email",
                         created_at: Date.now()
                     })
@@ -67,25 +64,7 @@ export default class FormSignin extends React.Component {
 
                 {/*InputForm*/}
 
-                <View style={styles.viewInput}>
-                    <Icon
-                        name='user'
-                        type='font-awesome'
-                        color='#ffffff'
-                        size={20}
-                        paddingHorizontal={5}
-
-                    />
-                    <TextInput style={styles.inputBox}
-                        underlineColorAndroid='#ffffff'
-                        placeholder='Username'
-                        placeholderTextColor='#ffffff'
-                        onChangeText={username => this.setState({ username })}
-                    />
-                </View>
-
-
-
+               
                 <View style={styles.viewInput}>
                     <Icon
                         name='envelope'
@@ -160,7 +139,7 @@ export default class FormSignin extends React.Component {
 
                     <Text style={styles.buttonText}>
                         สมัครสมาชิก
-                                </Text>
+                    </Text>
 
                 </TouchableOpacity>
 

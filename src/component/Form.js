@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, YellowBox, Alert } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, SocialIcon } from 'react-native-elements';
 import * as firebase from 'firebase';
 
 //stylesheet
@@ -28,7 +28,9 @@ export default class Form extends React.Component {
     onLoginPress = () => {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(() => {
+
                 Alert.alert("เข้าสู่ระบบ", "ยินดีต้อนรับ  " + this.state.email)
+
             },
                 (error) => {
                     Alert.alert("Warning!", error.message);
@@ -57,7 +59,7 @@ export default class Form extends React.Component {
 
                 //url ข้อมูลของ user facebook
                 const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,first_name,last_name,email,picture`);
-                console.log(response);
+                //console.log(response);
 
                 const userInfo = await response.json();
 
@@ -75,18 +77,19 @@ export default class Form extends React.Component {
                                         email: userInfo.email,
                                         profile_picture: userInfo.picture.data.url,
                                         first_name: userInfo.first_name,
+                                        last_logged_in: Date.now(),
                                         last_name: userInfo.last_name,
                                         account_type: "facebook",
                                         created_at: Date.now()
                                     })
 
-                            }else{
+                            } else {
                                 firebase
-                                .database()
-                                .ref('/users/' + result.user.uid)
-                                .update({
-                                    last_logged_in: Date.now()
-                                });
+                                    .database()
+                                    .ref('/users/' + result.user.uid)
+                                    .update({
+                                        last_logged_in: Date.now()
+                                    });
                             }
                         }
                         )
@@ -134,6 +137,7 @@ export default class Form extends React.Component {
                                         profile_picture: result.additionalUserInfo.profile.picture,
                                         first_name: result.additionalUserInfo.profile.given_name,
                                         last_name: result.additionalUserInfo.profile.family_name,
+                                        last_logged_in: Date.now(),
                                         account_type: "google",
                                         created_at: Date.now()
                                     })
@@ -258,9 +262,7 @@ export default class Form extends React.Component {
                         />
                     </View>
 
-                    <Text>
-                        {"\n"}
-                    </Text>
+
 
                     <TouchableOpacity onPress={this.onLoginPress} style={styles.button}>
                         {/*ICON*/}
@@ -278,41 +280,40 @@ export default class Form extends React.Component {
 
                     </TouchableOpacity>
 
+                    <Text style={styles.regisSocialText}>
+                        {"\n"}
+                        ──────  Or login with....  ──────
+                    </Text>
 
                     {/*buttonFacebook*/}
-                    <TouchableOpacity style={styles.buttonFb} onPress={() => this.loginWithFacebook()}>
+                    <View style={styles.loginSocial}>
                         {/*ICON*/}
-                        <Icon
-                            name='facebook-square'
-                            type='font-awesome'
-                            color='#ffffff'
-                            size={20}
-                            paddingHorizontal={12}
+
+
+                        <SocialIcon
+                            type='facebook'
+                            onPress={() => this.loginWithFacebook()}
+                            iconSize={33}
+                            raised={false}
                         />
 
-                        <Text style={styles.buttonText}>
-                            เข้าสู่ระบบด้วยบัญชี Facebook
-                        </Text>
-
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.buttonGg} onPress={() => this.loginWithGoogle()}>
-                        {/*ICON*/}
-                        <Icon
-                            name='google-plus-square'
-                            type='font-awesome'
-                            color='#ffffff'
-                            size={20}
-                            paddingHorizontal={12}
+                        <SocialIcon
+                            type='google'
+                            onPress={() => this.loginWithGoogle()}
+                            iconSize={33}
+                            raised={false}
+                            style={styles.googleBtn}
                         />
 
-                        <Text style={styles.buttonText}>
-                            เข้าสู่ระบบด้วยบัญชี Google
-                        </Text>
 
+                        <SocialIcon
+                            type='twitter'
+                            onPress={() => this.loginWithFacebook()}
+                            iconSize={33}
+                            raised={false}
+                        />
 
-                    </TouchableOpacity>
+                    </View>
 
                 </View>
 

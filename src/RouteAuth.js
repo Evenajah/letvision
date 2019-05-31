@@ -1,5 +1,3 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 

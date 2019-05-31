@@ -3,7 +3,7 @@ import { StyleSheet, View, ImageBackground } from 'react-native'
 import { AppLoading, Font } from 'expo';
 
 //import Component
-import Route from './src/Route'
+import Route from './src/RouteAuth'
 import * as firebase from 'firebase';
 import ApiKeys from './api/ApiKeys';
 

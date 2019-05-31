@@ -10,6 +10,9 @@ import Logo from '../component/Logo';
 import FormSignup from '../component/FormSignup';
 import Footer from '../component/Footer';
 
+//stylesheet
+import styles from '../styles';
+
 export default class Signup extends React.Component {
 
  
@@ -35,7 +38,7 @@ export default class Signup extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.containerSplash}>
                 <Logo />
                 <FormSignup type="สมัครสมาชิก" />
                 {/*link ปุ่มสมัคร*/}
@@ -64,30 +67,3 @@ export default class Signup extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#CD5C5C',
-    },
-
-    signupContext: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 16
-    },
-
-    flexIcon: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    signupText: {
-        fontFamily: 'Kanit-Light',
-        textDecorationLine: 'underline',
-        color: '#DCDCDC',
-        fontSize: 14,
-    },
-});

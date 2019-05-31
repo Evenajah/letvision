@@ -5,18 +5,6 @@ import { Font } from 'expo';
 export default class Logo extends React.Component {
 
 
-    state = {
-        fontLoaded: false,
-    };
-
-    async componentDidMount() {
-        await Font.loadAsync({
-            'Kanit-Light': require('../../assets/fonts/Kanit-Light.ttf')
-        });
-
-        this.setState({ fontLoaded: true });
-    }
-
 
     render() {
         return (
@@ -26,15 +14,12 @@ export default class Logo extends React.Component {
                     source={require('../images/logo.png')}
                     style={{ width: 350, height: 150 }}
                 />
-                
-                {
-                    //โหลดฟ้อน
-                    this.state.fontLoaded ? (
-                        <View>
-                            <Text style={styles.logoText}>Be sight for the blind.</Text>
-                        </View>
-                    ) : null
-                }
+
+
+                <View>
+                    <Text style={styles.logoText}>Be sight for the blind.</Text>
+                </View>
+
 
             </View>
         );
@@ -48,7 +33,8 @@ const styles = StyleSheet.create({
     },
 
     logoText: {
-        fontSize: 18,
+        fontFamily:'Kanit-Light',
+        fontSize: 15,
         color: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
