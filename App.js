@@ -1,15 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, ImageBackground } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { AppLoading, Font } from 'expo';
 
+//navigation
+import Route from './src/navigation/AuthNavigation';
+import Drawer from './src/navigation/DrawerNavigation'
+
 //import Component
-import Route from './src/RouteAuth'
 import * as firebase from 'firebase';
 import ApiKeys from './api/ApiKeys';
 
-
-//screen
-import Main from './src/pages/Main';
 
 export default class App extends React.Component {
 
@@ -75,7 +75,7 @@ export default class App extends React.Component {
     } else{
     return (
       <View style={styles.container}>
-        {(this.state.isAuthenticated) ? <Main /> : <Route />}
+        {(this.state.isAuthenticated) ? <Drawer /> : <Route />}
       </View>
     );
     }
@@ -84,7 +84,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    
     flex: 1,
   },
 

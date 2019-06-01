@@ -2,9 +2,9 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 
 //component
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Main from './pages/Main';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
+
 
 
 const RootStackNavigator = createStackNavigator({
@@ -22,7 +22,7 @@ const RootStackNavigator = createStackNavigator({
         }
     
     },
-    Main: { screen:Main },
+    
   
 
 })
