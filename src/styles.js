@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
 
     container: {
         flexGrow: 1,
@@ -9,7 +9,8 @@ const styles =  StyleSheet.create({
         justifyContent: 'center',
     },
 
-    containerSplash:{
+//sPlashScreen
+    containerSplash: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -33,7 +34,7 @@ const styles =  StyleSheet.create({
         marginVertical: 10,
 
     },
-   
+
     button: {
         flexDirection: 'row',
         width: 270,
@@ -68,10 +69,10 @@ const styles =  StyleSheet.create({
     },
 
     googleBtn: {
-        backgroundColor:'#CC3333'
+        backgroundColor: '#CC3333'
     },
 
-    regisSocialText:{
+    regisSocialText: {
         fontFamily: 'Kanit-Light',
         fontSize: 15,
         color: '#ffffff',
@@ -80,21 +81,49 @@ const styles =  StyleSheet.create({
     signupContext: {
         alignItems: 'center',
         justifyContent: 'center',
-      },
-    
-      flexIcon: {
+    },
+
+    flexIcon: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-      },
-    
-      signupText: {
+    },
+
+    signupText: {
         textDecorationLine: 'underline',
         fontFamily: 'Kanit-Light',
         color: '#DCDCDC',
         fontSize: 14
-      },
+    },
 
+
+//Drawer
+    sideMenuContainer: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#CD5C5C',
+        alignItems: 'center',
+
+    },
+
+    avatar: {
+        marginVertical: 20,
+        alignSelf: 'center'
+
+    },
+    avatarContainer: {
+        width: '100%'
+
+    },
+    wrapDrawer: {
+        width: '100%',
+        height: 1,
+    },
+    listDrawer: {
+        backgroundColor:'#FA8072',
+        fontFamily: 'Kanit-Light',
+       
+    }
 });
 
 export default styles;

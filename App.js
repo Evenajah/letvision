@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { AppLoading, Font } from 'expo';
 
 //navigation
-import Route from './src/navigation/AuthNavigation';
+import Auth from './src/navigation/AuthNavigation';
 import Drawer from './src/navigation/DrawerNavigation'
 
 //import Component
@@ -75,7 +75,7 @@ export default class App extends React.Component {
     } else{
     return (
       <View style={styles.container}>
-        {(this.state.isAuthenticated) ? <Drawer /> : <Route />}
+        {(this.state.isAuthenticated) ? <Drawer /> : <Auth />}
       </View>
     );
     }
