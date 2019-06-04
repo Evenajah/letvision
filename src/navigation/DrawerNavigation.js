@@ -11,10 +11,6 @@ import DrawerContent from '../component/DrawerContent'
 
 
 
-
-
-
-
 const Navigation = createDrawerNavigator({
     Home: {
         screen: HomeScreen

@@ -3,6 +3,9 @@ import { View } from 'react-native';
 import * as firebase from 'firebase';
 import { SocialIcon } from 'react-native-elements';
 
+//timeStamp
+import moment from 'moment';
+
 //stylesheet
 import styles from '../styles';
 
@@ -53,7 +56,13 @@ export default class GoogleLogin extends React.Component {
                         .auth()
                         .signInWithCredential(credential)
                         .then(function (result) {
+
+                             //timestamp
+                             const today = Date.now();
+                             const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
+
                             console.log('user signed in ');
+
                             if (result.additionalUserInfo.isNewUser) {
                                 firebase
                                     .database()
@@ -63,9 +72,9 @@ export default class GoogleLogin extends React.Component {
                                         profile_picture: result.additionalUserInfo.profile.picture,
                                         first_name: result.additionalUserInfo.profile.given_name,
                                         last_name: result.additionalUserInfo.profile.family_name,
-                                        last_logged_in: Date.now(),
+                                        last_logged_in: date,
                                         account_type: "google",
-                                        created_at: Date.now()
+                                        created_at: date
                                     })
 
                             } else {
@@ -73,7 +82,7 @@ export default class GoogleLogin extends React.Component {
                                     .database()
                                     .ref('/users/' + result.user.uid)
                                     .update({
-                                        last_logged_in: Date.now()
+                                        last_logged_in: date
                                     });
                             }
                         })

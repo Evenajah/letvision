@@ -34,6 +34,7 @@ export default class App extends React.Component {
   onAuthStateChanged = (user) => {
     this.setState({isAuthenticationReady: true});
     this.setState({isAuthenticated: !!user});
+    
   }
 
   _handleLoadingError = error => {

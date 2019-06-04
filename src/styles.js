@@ -123,6 +123,14 @@ const styles = StyleSheet.create({
         backgroundColor:'#FA8072',
         fontFamily: 'Kanit-Light',
        
+    },
+  
+    textUser:{
+        fontFamily: 'Kanit-Light',
+        color:'#ffffff',
+        alignSelf:'center',
+        fontSize:20,
+        paddingBottom:13
     }
 });
 

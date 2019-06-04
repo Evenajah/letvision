@@ -6,6 +6,10 @@ import * as firebase from 'firebase';
 //stylesheet
 import styles from '../styles';
 
+//timeStamp
+import moment from 'moment';
+
+
 export default class FormSignin extends React.Component {
 
     constructor(props) {
@@ -33,17 +37,25 @@ export default class FormSignin extends React.Component {
             return;
         }
 
+        //timestamp
+        const today = Date.now();
+        const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
+
+
         //createUser
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(() => {
+
+
                 //add data in db
                 firebase
                     .database()
                     .ref('/users/')
                     .push({
                         email: this.state.email,
-                        account_type : "email",
-                        created_at: Date.now()
+                        account_type: "email",
+                        created_at: date,
+                        last_logged_in: date,
                     })
 
                 Alert.alert("Success!", "Succesfully Signup");
@@ -51,7 +63,7 @@ export default class FormSignin extends React.Component {
             }, (error) => {
 
                 Alert.alert("Warning!", error.message);
-                
+
             });
     }
 
@@ -64,7 +76,7 @@ export default class FormSignin extends React.Component {
 
                 {/*InputForm*/}
 
-               
+
                 <View style={styles.viewInput}>
                     <Icon
                         name='envelope'

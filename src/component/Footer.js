@@ -8,12 +8,10 @@ export default class Footer extends React.Component {
         return (
             <View style={styles.container}>
 
-
                 <Text style={styles.copyrightText}>
                     {/*Copyright Symbol*/}
                     {'\u00A9'} LetView, 2019 | Powered by react-native
                 </Text>
-
 
             </View>
         );
