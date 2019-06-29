@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Avatar } from 'react-native-elements';
+import { AppLoading } from 'expo';
 
 //stylesheet
 import styles from '../styles';
@@ -17,10 +18,10 @@ export default class DrawerContent extends React.Component {
 
     constructor() {
         super();
-        const userRecieve = userData.currentUser.providerData[0];
+
 
         this.state = {
-            userDetail: userRecieve
+            userDetail: ''
         }
 
         //formatuser
@@ -32,8 +33,6 @@ export default class DrawerContent extends React.Component {
             providerId:
             uid:
         */
-
-
 
         //Setting up the Main Top Large Image of the Cussstom Sidebar
 
@@ -61,16 +60,28 @@ export default class DrawerContent extends React.Component {
         ];
     }
 
+    componentWillMount() {
+        const userRecieve = userData.currentUser.providerData[0];
+        this.setState({
+            userDetail: userRecieve
+        })
 
+        console.log(this.state.userDetail);
+    }
 
     onSignoutPress = () => {
         firebase.auth().signOut();
     }
 
     render() {
+        
         return (
             <View style={styles.sideMenuContainer}>
-
+                <AppLoading
+                    startAsync={this._loadResourcesAsync}
+                    onError={this._handleLoadingError}
+                    onFinish={this._handleFinishLoading}
+                />
                 {/*Avatar section*/}
                 <ImageBackground source={require('../images/bgAvatar.jpg')} style={styles.avatarContainer} >
 
@@ -82,13 +93,12 @@ export default class DrawerContent extends React.Component {
                     <Avatar
                         containerStyle={styles.avatar}
                         size="xlarge"
-                        title="LW"
-                        onPress={() => console.log("Works!")}
+                        // onPress={() => console.log("Works!")}
                         activeOpacity={0.7}
                         rounded
                         source={{
                             uri:
-                                this.state.userDetail.photoURL + '?width=500',
+                                this.state.userDetail.photoURL + '?width=500'
                         }}
                     />
 

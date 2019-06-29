@@ -1,10 +1,19 @@
 import React from 'react';
+
+// component
 import { Text, View, Button } from 'react-native';
+import Head from '../component/Head';
+import Loading from './Loading';
+import SelectStatUser from '../component/SelectStatUser';
+
+// fire
 import * as firebase from 'firebase';
 
+// userAuth
 import userData from '../component/UserData';
 
-import Head from '../component/Head';
+
+
 
 
 export default class HomeScreen extends React.Component {
@@ -12,27 +21,26 @@ export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentUser: ''
+            userId: userData.currentUser.uid,
+            userData: {},
+            currentUser: '',
+            isLoading: false,
         }
     }
 
-
     componentDidMount() {
-        const userDetail = userData.currentUser.providerData[0];
+        firebase.database().ref(`/users/${this.state.userId}`).once('value', (data) => {
+            this.setState({
+                userData: data.toJSON(),
+            })
+            console.log('userData',this.state.userData)
+        }).then(() => {
+            this.setState({isLoading: true})
+        });
 
-        console.log(userDetail.displayName);
-
-        //formatuser
-        /*
-            displayname:
-            emil:
-            phoneNumber:
-            protoURL:
-            providerId:
-            uid:
-        */
-
+        
     }
+
 
 
     onSignoutPress = () => {
@@ -41,27 +49,30 @@ export default class HomeScreen extends React.Component {
 
 
     render() {
+        // checkStat
+        if (this.state.isLoading) {
+            // check Stat
+            if (!this.state.userData.stat) {
+                return (
+                    <SelectStatUser {...this.props}/>
+                );
+            } else {
+                return (
+                    <View >
 
-        return (
-            <View >
+                        {/*Header*/}
+                        <Head />
+                        
 
-                {/*Header*/}
+                    </View>
 
-                <Head />
-
-                <Button
-                    title="Outline buttonff"
-
-                    onPress={() => this.props.navigation.openDrawer()}
-                />
-                <Button
-                    title="Logout"
-
-                    onPress={this.onSignoutPress}
-                />
-
-            </View>
-        );
+                );
+            }
+        } else {
+            return (
+                <Loading />
+            );
+        }
     }
 }
 

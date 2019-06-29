@@ -7,5 +7,6 @@ firebase.initializeApp(ApiKeys.FirebaseConfig);
 
 const userData = firebase.auth();
 
-
 export default userData;
+
+

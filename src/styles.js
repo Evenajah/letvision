@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { white } from 'ansi-colors';
 
 
 const styles = StyleSheet.create({
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-//sPlashScreen
+    //sPlashScreen
     containerSplash: {
         flex: 1,
         alignItems: 'center',
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     },
 
 
-//Drawer
+    //Drawer
     sideMenuContainer: {
         width: '100%',
         height: '100%',
@@ -120,17 +121,45 @@ const styles = StyleSheet.create({
         height: 1,
     },
     listDrawer: {
-        backgroundColor:'#FA8072',
+        backgroundColor: '#FA8072',
         fontFamily: 'Kanit-Light',
-       
+
     },
-  
-    textUser:{
+
+    textUser: {
         fontFamily: 'Kanit-Light',
-        color:'#ffffff',
+        color: '#ffffff',
+        alignSelf: 'center',
+        fontSize: 20,
+        paddingBottom: 13
+    },
+
+    //Overlay
+    overlayText: {
+        fontFamily: 'Kanit-Light',
+        color:'white',
         alignSelf:'center',
+    },
+
+    
+    overlayTextHeader: {
+        fontFamily: 'Kanit-Light',
         fontSize:20,
-        paddingBottom:13
+        alignSelf:'center',
+        color:'white'
+    },
+
+    overlayContent: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#CD5C5C',
+      
+    },
+
+    overlayBox:{
+        backgroundColor:'#FA8072',
+        padding:50
     }
 });
 
