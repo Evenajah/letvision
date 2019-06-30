@@ -4,37 +4,38 @@ import { AppLoading, Font } from 'expo';
 
 //navigation
 import Auth from './src/navigation/AuthNavigation';
-import Drawer from './src/navigation/DrawerNavigation'
+import TabNavigation from './src/navigation/TabNavigation';
 
 //import Component
 import * as firebase from 'firebase';
 import ApiKeys from './api/ApiKeys';
+import FirstCheck from './src/component/FirstCheck';
 
 
 export default class App extends React.Component {
 
-  constructor(props){
+  constructor (props) {
     super(props);
 
     this.state = {
       isLoadingComplete: false,
-      isAuthenticationReady : false,
-      isAuthenticated:false,
+      isAuthenticationReady: false,
+      isAuthenticated: false,
     }
 
 
-    if (!firebase.apps.length) { 
-      firebase.initializeApp(ApiKeys.FirebaseConfig); 
+    if (!firebase.apps.length) {
+      firebase.initializeApp(ApiKeys.FirebaseConfig);
     }
-    
+
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
 
   }
 
   onAuthStateChanged = (user) => {
-    this.setState({isAuthenticationReady: true});
-    this.setState({isAuthenticated: !!user});
-    
+    this.setState({ isAuthenticationReady: true });
+    this.setState({ isAuthenticated: !!user });
+
   }
 
   _handleLoadingError = error => {
@@ -65,7 +66,7 @@ export default class App extends React.Component {
 
 
   render() {
-    if ( (!this.state.isLoadingComplete || !this.state.isAuthenticationReady) && !this.props.skipLoadingScreen) {
+    if ((!this.state.isLoadingComplete || !this.state.isAuthenticationReady) && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -73,12 +74,12 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else{
-    return (
-      <View style={styles.container}>
-        {(this.state.isAuthenticated) ? <Drawer /> : <Auth />}
-      </View>
-    );
+    } else {
+      return (
+        <View style={styles.container}>
+          {(this.state.isAuthenticated) ? <FirstCheck /> : <Auth />}
+        </View>
+      );
     }
   }
 }

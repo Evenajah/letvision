@@ -19,7 +19,7 @@ export default class Head extends React.Component {
 
                 <Header
                     leftComponent={<Menu/>}
-                    centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } } }
+                    centerComponent={{ text: this.props.title, style: { color: '#fff' } } }
                     rightComponent={{ icon: 'home', color: '#fff' }}
                     backgroundColor='#CD5C5C'
                 />

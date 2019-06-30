@@ -4,13 +4,14 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import Head from '../component/Head';
 import Loading from './Loading';
-import SelectStatUser from '../component/SelectStatUser';
+import SelectStatUserScreen from './SelectStatUserScreen';
 
 // fire
 import * as firebase from 'firebase';
 
 // userAuth
 import userData from '../component/UserData';
+import CheckStatUser from '../component/CheckStatUser';
 
 
 
@@ -18,7 +19,7 @@ import userData from '../component/UserData';
 
 export default class HomeScreen extends React.Component {
 
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
             userId: userData.currentUser.uid,
@@ -33,12 +34,11 @@ export default class HomeScreen extends React.Component {
             this.setState({
                 userData: data.toJSON(),
             })
-            console.log('userData',this.state.userData)
+            // console.log('userData',this.state.userData)
         }).then(() => {
-            this.setState({isLoading: true})
+            this.setState({ isLoading: true })
         });
 
-        
     }
 
 
@@ -49,25 +49,11 @@ export default class HomeScreen extends React.Component {
 
 
     render() {
-        // checkStat
+        // checkLoad
         if (this.state.isLoading) {
-            // check Stat
-            if (!this.state.userData.stat) {
-                return (
-                    <SelectStatUser {...this.props}/>
-                );
-            } else {
-                return (
-                    <View >
-
-                        {/*Header*/}
-                        <Head />
-                        
-
-                    </View>
-
-                );
-            }
+            return (
+                <CheckStatUser user={this.state.userData} />
+            );
         } else {
             return (
                 <Loading />

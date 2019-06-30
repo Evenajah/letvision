@@ -4,24 +4,27 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
+
 // stylesheet
 import styles from '../styles';
 
 // userAuth
-import userData from './UserData';
+import userData from '../component/UserData';
 
 // fire
 import * as firebase from 'firebase';
-import HomeScreen from '../pages/HomeScreen';
+
+// Screen 
+import HomeScreen from './HomeScreen';
+
+// Nav
+import TabNavigation from '../navigation/TabNavigation';
 
 
-
-
-export default class SelectStatUser extends React.Component {
+export default class SelectStatUserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isVisible: true,
             userId: userData.currentUser.uid,
             addStat: false
         }
@@ -43,7 +46,7 @@ export default class SelectStatUser extends React.Component {
 
     render() {
         if (this.state.addStat) {
-            return <HomeScreen />
+            return <TabNavigation />
         } else {
             return (
 

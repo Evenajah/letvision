@@ -160,6 +160,12 @@ const styles = StyleSheet.create({
     overlayBox:{
         backgroundColor:'#FA8072',
         padding:50
+    },
+
+    // VolunteerScreen
+    wrapVol:{
+        flex: 1,
+        backgroundColor:'#FA8072',
     }
 });
 
