@@ -3,6 +3,8 @@ import userData from './UserData';
 
 // fire
 import * as firebase from 'firebase';
+
+// component
 import Loading from '../pages/Loading';
 import SelectStatUserScreen from '../pages/SelectStatUserScreen';
 
@@ -26,7 +28,7 @@ export default class FirstCheck extends React.Component {
             this.setState({
                 userData: data.toJSON(),
             })
-            console.log('userData',this.state.userData)
+            // console.log('userData',this.state.userData)
         }).then(() => {
             this.setState({ isLoading: true })
         });

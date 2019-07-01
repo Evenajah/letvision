@@ -14,9 +14,6 @@ import userData from '../component/UserData';
 // fire
 import * as firebase from 'firebase';
 
-// Screen 
-import HomeScreen from './HomeScreen';
-
 // Nav
 import TabNavigation from '../navigation/TabNavigation';
 
@@ -89,7 +86,7 @@ export default class SelectStatUserScreen extends React.Component {
                         />
 
                         <Text style={styles.overlayText}>
-                            อาสาสมัคร ( Volunteer... )
+                            อาสาสมัคร ( Volunteer )
                     </Text>
 
                     </View>

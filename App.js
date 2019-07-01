@@ -4,7 +4,7 @@ import { AppLoading, Font } from 'expo';
 
 //navigation
 import Auth from './src/navigation/AuthNavigation';
-import TabNavigation from './src/navigation/TabNavigation';
+
 
 //import Component
 import * as firebase from 'firebase';

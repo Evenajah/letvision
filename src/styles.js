@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { white } from 'ansi-colors';
+
 
 
 const styles = StyleSheet.create({
@@ -166,7 +166,34 @@ const styles = StyleSheet.create({
     wrapVol:{
         flex: 1,
         backgroundColor:'#FA8072',
-    }
+       
+    },
+
+    wrapChart:{
+        alignSelf:'center'
+    },
+
+    wrapTextVolSc:{
+        padding:15,
+        backgroundColor:'white',
+        alignItems:'center',
+        fontSize:30
+
+    },
+
+    textVolSc:{
+        fontFamily: 'Kanit-Light',
+       
+    },
+
+    //chart
+    chart:{
+        backgroundColor:'white',
+        height:200,
+        fontFamily: 'Kanit-Light',
+    },
+
+
 });
 
 export default styles;

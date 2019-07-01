@@ -8,7 +8,7 @@ export default class Loading extends React.Component {
     return (
       <View style={styles.container}>
         <Image
-          source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif' }}
+          source={{ uri: 'http://spa.hss.moph.go.th/image/spinner.gif' }}
           style={{ width: 200, height: 200 }}
         />
       </View>

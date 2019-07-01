@@ -22,7 +22,7 @@ export default class HomeScreen extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            userId: userData.currentUser.uid,
+            userId: { uid: userData.currentUser.uid },
             userData: {},
             currentUser: '',
             isLoading: false,
@@ -30,9 +30,9 @@ export default class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        firebase.database().ref(`/users/${this.state.userId}`).once('value', (data) => {
+        firebase.database().ref(`/users/${this.state.userId.uid}`).once('value', (data) => {
             this.setState({
-                userData: data.toJSON(),
+                userData:{ ...this.state.userId, ...data.toJSON() }
             })
             // console.log('userData',this.state.userData)
         }).then(() => {
