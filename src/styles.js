@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 
 
@@ -137,16 +137,16 @@ const styles = StyleSheet.create({
     //Overlay
     overlayText: {
         fontFamily: 'Kanit-Light',
-        color:'white',
-        alignSelf:'center',
+        color: 'white',
+        alignSelf: 'center',
     },
 
-    
+
     overlayTextHeader: {
         fontFamily: 'Kanit-Light',
-        fontSize:20,
-        alignSelf:'center',
-        color:'white'
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'white'
     },
 
     overlayContent: {
@@ -154,44 +154,98 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#CD5C5C',
-      
+
     },
 
-    overlayBox:{
-        backgroundColor:'#FA8072',
-        padding:50
+    overlayBox: {
+        backgroundColor: '#FA8072',
+        padding: 50
     },
 
     // VolunteerScreen
-    wrapVol:{
+    wrapVol: {
         flex: 1,
-        backgroundColor:'#FA8072',
-       
-    },
-
-    wrapChart:{
-        alignSelf:'center'
-    },
-
-    wrapTextVolSc:{
-        padding:15,
-        backgroundColor:'white',
-        alignItems:'center',
-        fontSize:30
+        backgroundColor: '#FA8072',
 
     },
 
-    textVolSc:{
+    wrapChart: {
+        alignSelf: 'center',
+        paddingVertical: 15
+
+    },
+
+    wrapTextVolSc: {
+        padding: 15,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        fontSize: 30,
+
+
+    },
+
+    textVolSc: {
         fontFamily: 'Kanit-Light',
-       
+        color: '#CD5C5C',
+
     },
 
     //chart
-    chart:{
-        backgroundColor:'white',
-        height:200,
+    chart: {
+        backgroundColor: 'white',
+        height: 200,
         fontFamily: 'Kanit-Light',
     },
+
+
+
+    // userBox
+    wrapUserBox: {
+
+        backgroundColor: 'white',
+        width: Dimensions.get('window').width - 15,
+        alignSelf: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        
+        elevation: 4,
+        padding: 20,
+        flexDirection: 'row'
+    },
+
+    textUserBox: {
+        fontFamily: 'Kanit-Light',
+        fontSize: 12,
+        color: '#CD5C5C',
+    
+    },
+
+
+    textUserBoxHead: {
+        fontFamily: 'Kanit-Light',
+        fontSize: 15,
+        color: '#CD5C5C',
+       
+    },
+
+
+    
+
+    contentText: {
+        flexDirection: 'row',
+    },
+
+    xxx:{
+        borderLeftWidth: 0.5,
+        borderLeftColor:'#CD5C5C',
+        paddingHorizontal:15,
+        marginLeft:20
+    }
 
 
 });

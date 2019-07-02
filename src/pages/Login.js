@@ -53,7 +53,7 @@ export default class Login extends React.Component {
             />
 
             <Text style={styles.signupText}>
-              สมัครสมาชิกที่นี่
+              สมัครสมาชิกที่นี่..
                 </Text>
 
           </TouchableOpacity>

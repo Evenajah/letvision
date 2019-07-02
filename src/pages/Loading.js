@@ -9,7 +9,7 @@ export default class Loading extends React.Component {
       <View style={styles.container}>
         <Image
           source={{ uri: 'http://spa.hss.moph.go.th/image/spinner.gif' }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 100, height: 100 }}
         />
       </View>
     )

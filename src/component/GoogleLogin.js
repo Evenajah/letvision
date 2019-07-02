@@ -64,11 +64,12 @@ export default class GoogleLogin extends React.Component {
                             console.log('user signed in ');
 
                             if (result.additionalUserInfo.isNewUser) {
+                                console.log(result.additionalUserInfo);
                                 firebase
                                     .database()
                                     .ref('/users/' + result.user.uid)
                                     .set({
-                                        gmail: result.user.email,
+                                        email: result.additionalUserInfo.user.email,
                                         profile_picture: result.additionalUserInfo.profile.picture,
                                         first_name: result.additionalUserInfo.profile.given_name,
                                         last_name: result.additionalUserInfo.profile.family_name,

@@ -73,7 +73,7 @@ export default class Chart extends React.Component {
                         backgroundGradientTo: '#ffa726',
                         decimalPlaces: 2, // optional, defaults to 2dp
                         color: (opacity = 0.5) => `rgba(255, 255, 200, ${opacity})`,
-                     
+
                     }}
                     paddingRight={200}
                     accessor="population"

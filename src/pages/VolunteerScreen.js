@@ -1,5 +1,8 @@
 import React from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View } from 'react-native';
+
+// component
+import { Icon } from 'react-native-elements'
 
 
 //stylesheet
@@ -8,6 +11,7 @@ import Head from '../component/Head';
 
 //chart
 import Chart from '../component/Chart';
+import ShowUserBox from '../component/ShowUserBox';
 
 
 
@@ -34,17 +38,17 @@ export default class VolunteerScreen extends React.Component {
 
 
                 <View style={styles.wrapChart}>
-                <Text>{'\n'}</Text>
+                   
                     <View style={styles.wrapTextVolSc}>
 
                         <Text style={styles.textVolSc}>อัตราส่วนผู้ใช้งาน</Text>
 
                     </View>
-                    
-
                     <Chart />
-
                 </View>
+
+                
+                <ShowUserBox user={this.props.user}/>
 
 
             </View>
