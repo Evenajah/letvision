@@ -240,13 +240,33 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
-    xxx:{
+    divideSection:{
         borderLeftWidth: 0.5,
         borderLeftColor:'#CD5C5C',
         paddingHorizontal:15,
         marginLeft:20
-    }
+    },
 
+
+    // HowtoUse
+    buttonHt:{
+        width: Dimensions.get('window').width - 15,
+        alignSelf:'center',
+        marginTop:15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        backgroundColor:'#DCDCDC',
+        
+
+    },
+    
+    
 
 });
 

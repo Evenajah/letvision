@@ -39,7 +39,7 @@ export default class GoogleLogin extends React.Component {
 
     //func เช็ค login google
     onSignInGoogle = googleUser => {
-        console.log('Google Auth Response', googleUser);
+        // console.log('Google Auth Response', googleUser);
         // We need to register an Observer on Firebase Auth to make sure auth is initialized.
         var unsubscribe = firebase.auth().onAuthStateChanged(
             function (firebaseUser) {
@@ -64,12 +64,12 @@ export default class GoogleLogin extends React.Component {
                             console.log('user signed in ');
 
                             if (result.additionalUserInfo.isNewUser) {
-                                console.log(result.additionalUserInfo);
+                               
                                 firebase
                                     .database()
                                     .ref('/users/' + result.user.uid)
                                     .set({
-                                        email: result.additionalUserInfo.user.email,
+                                        email: result.additionalUserInfo.profile.email,
                                         profile_picture: result.additionalUserInfo.profile.picture,
                                         first_name: result.additionalUserInfo.profile.given_name,
                                         last_name: result.additionalUserInfo.profile.family_name,
@@ -83,6 +83,7 @@ export default class GoogleLogin extends React.Component {
                                     .database()
                                     .ref('/users/' + result.user.uid)
                                     .update({
+                                        profile_picture: result.additionalUserInfo.profile.picture,
                                         last_logged_in: date
                                     });
                             }
@@ -95,6 +96,7 @@ export default class GoogleLogin extends React.Component {
                             var email = error.email;
                             // The firebase.auth.AuthCredential type that was used.
                             var credential = error.credential;
+                            console.log('errorGoogle',error);
                             // ...
                         });
                 } else {

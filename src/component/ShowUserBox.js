@@ -16,15 +16,6 @@ import styles from '../styles';
 
 export default class ShowUserBox extends React.Component {
 
-    constructor (props) {
-        super(props);
-
-        this.state = {}
-
-    }
-
-
-
 
     render() {
 
@@ -48,7 +39,7 @@ export default class ShowUserBox extends React.Component {
 
                     />
 
-                    <View style={styles.xxx}>
+                    <View style={styles.divideSection}>
 
                         <View style={styles.contentText}>
                             <Text>{'  '}</Text>
