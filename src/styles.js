@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-        
+
         elevation: 4,
         padding: 20,
         flexDirection: 'row'
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Kanit-Light',
         fontSize: 12,
         color: '#CD5C5C',
-    
+
     },
 
 
@@ -230,29 +230,35 @@ const styles = StyleSheet.create({
         fontFamily: 'Kanit-Light',
         fontSize: 15,
         color: '#CD5C5C',
-       
+
     },
 
 
-    
+
 
     contentText: {
         flexDirection: 'row',
     },
 
-    divideSection:{
+    divideSection: {
         borderLeftWidth: 0.5,
-        borderLeftColor:'#CD5C5C',
-        paddingHorizontal:15,
-        marginLeft:20
+        borderLeftColor: '#CD5C5C',
+        paddingHorizontal: 15,
+        marginLeft: 20
+    },
+
+    // editUser
+    wrapEdit:{
+        alignItems:'center',
+        padding:30
     },
 
 
     // HowtoUse
-    buttonHt:{
+    buttonHt: {
         width: Dimensions.get('window').width - 15,
-        alignSelf:'center',
-        marginTop:15,
+        alignSelf: 'center',
+        marginTop: 15,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -261,12 +267,25 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        backgroundColor:'#DCDCDC',
-        
+        backgroundColor: '#DCDCDC',
+
 
     },
-    
-    
+
+    // CardStory
+    wrapCardStory: {
+        width: Dimensions.get('window').width - 15,
+        alignSelf: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+    }
+
 
 });
 

@@ -55,7 +55,7 @@ export default class Chart extends React.Component {
             })
 
         }).catch((err) => {
-            console.log(err);
+            alert(`Error: ${err}`)
         });
     }
 

@@ -1,10 +1,7 @@
 import React from 'react';
 
 // component
-import { Text, View, Button } from 'react-native';
-import Head from '../component/Head';
 import Loading from './Loading';
-import SelectStatUserScreen from './SelectStatUserScreen';
 
 // fire
 import * as firebase from 'firebase';
@@ -12,6 +9,7 @@ import * as firebase from 'firebase';
 // userAuth
 import userData from '../component/UserData';
 import CheckStatUser from '../component/CheckStatUser';
+
 
 
 
@@ -27,6 +25,8 @@ export default class HomeScreen extends React.Component {
             currentUser: '',
             isLoading: false,
         }
+
+        
     }
 
     componentDidMount() {
@@ -52,7 +52,7 @@ export default class HomeScreen extends React.Component {
         // checkLoad
         if (this.state.isLoading) {
             return (
-                <CheckStatUser user={this.state.userData} />
+                <CheckStatUser user={this.state.userData} navigation={this.props.navigation} />
             );
         } else {
             return (

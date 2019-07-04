@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 // Navoption
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer, withNavigation } from 'react-navigation';
+
 
 //Screen
 import HomeScreen from "../pages/HomeScreen";
@@ -10,6 +11,7 @@ import SettingScreen from "../pages/SettingScreen";
 
 // Icon
 import { Icon } from 'react-native-elements'
+import EditUser from '../component/EditUser';
 
 
 
@@ -57,6 +59,7 @@ const Navigation = createBottomTabNavigator({
             )
         }
     },
+    
 },
     {
         initialRouteName: 'Home',

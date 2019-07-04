@@ -2,11 +2,12 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 // component
-import { Avatar, Icon } from 'react-native-elements'
+import { Avatar, Icon, Overlay } from 'react-native-elements'
 
 
 //stylesheet
 import styles from '../styles';
+import EditUser from './EditUser';
 
 
 
@@ -15,6 +16,15 @@ import styles from '../styles';
 
 
 export default class ShowUserBox extends React.Component {
+
+    constructor (props) {
+        super(props);
+        console.log('props', this.props);
+
+        this.state = {
+            isVisible: false
+        }
+    }
 
 
     render() {
@@ -34,7 +44,7 @@ export default class ShowUserBox extends React.Component {
                                 `${this.props.user.profile_picture}`,
                         }}
                         showEditButton
-                        onPress={() => console.log('hello')}
+                        onPress={() => this.setState({ isVisible: true })}
 
 
                     />
@@ -93,6 +103,19 @@ export default class ShowUserBox extends React.Component {
                     </View>
 
                 </View>
+
+                {/*Overlay*/}
+                <Overlay isVisible={this.state.isVisible}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    overlayBackgroundColor='#CD5C5C'
+                    width="auto"
+                    height="auto"
+                >
+
+                    <EditUser user = {this.props.user} navigation={this.props.navigation}  />
+
+                </Overlay>
+
             </View>
 
         );

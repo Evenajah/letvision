@@ -34,7 +34,7 @@ export default class HowToUse extends React.Component {
 
 
         return (
-            <View>
+            <View style={{ marginBottom: 15 }}>
                 <Button
                     buttonStyle={styles.buttonHt}
 
