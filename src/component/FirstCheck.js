@@ -11,25 +11,33 @@ import SelectStatUserScreen from '../pages/SelectStatUserScreen';
 // Nav
 import TabNavigation from '../navigation/TabNavigation';
 
-export default class FirstCheck extends React.Component {
+// redux
+import { connect } from 'react-redux';
+
+
+
+class FirstCheck extends React.Component {
 
     constructor () {
         super();
 
         this.state = {
-            userId: userData.currentUser.uid,
+            userId: { uid: userData.currentUser.uid },
             isLoading: false,
             userData:{}
         }
+
+        
     }
 
     componentDidMount() {
-        firebase.database().ref(`/users/${this.state.userId}`).once('value', (data) => {
+        firebase.database().ref(`/users/${this.state.userId.uid}`).once('value', (data) => {
             this.setState({
-                userData: data.toJSON(),
+                userData:{ ...this.state.userId, ...data.toJSON() }
             })
             // console.log('userData',this.state.userData)
         }).then(() => {
+            this.props.setUser(this.state.userData);
             this.setState({ isLoading: true })
         });
     }
@@ -55,3 +63,18 @@ export default class FirstCheck extends React.Component {
 
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        setUser:(user) => {
+           dispatch({
+               type:"setUser",
+               item:user
+           })
+
+        }
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(FirstCheck);

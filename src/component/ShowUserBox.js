@@ -9,28 +9,14 @@ import { Avatar, Icon, Overlay } from 'react-native-elements'
 import styles from '../styles';
 import EditUser from './EditUser';
 
+// redux
+import { connect } from 'react-redux';
 
 
 
-
-
-
-export default class ShowUserBox extends React.Component {
-
-    constructor (props) {
-        super(props);
-        console.log('props', this.props);
-
-        this.state = {
-            isVisible: false
-        }
-    }
-
+class ShowUserBox extends React.Component {
 
     render() {
-
-
-
         return (
             <View>
                 <View style={styles.wrapUserBox}>
@@ -44,7 +30,7 @@ export default class ShowUserBox extends React.Component {
                                 `${this.props.user.profile_picture}`,
                         }}
                         showEditButton
-                        onPress={() => this.setState({ isVisible: true })}
+                        onPress={() => this.props.setVisible(true)}
 
 
                     />
@@ -105,14 +91,14 @@ export default class ShowUserBox extends React.Component {
                 </View>
 
                 {/*Overlay*/}
-                <Overlay isVisible={this.state.isVisible}
-                    onBackdropPress={() => this.setState({ isVisible: false })}
+                <Overlay isVisible={this.props.isVisible}
+                    onBackdropPress={() => this.props.setVisible(false)}
                     overlayBackgroundColor='#CD5C5C'
                     width="auto"
                     height="auto"
                 >
 
-                    <EditUser user = {this.props.user} navigation={this.props.navigation}  />
+                    <EditUser />
 
                 </Overlay>
 
@@ -122,3 +108,26 @@ export default class ShowUserBox extends React.Component {
     }
 }
 
+const mapStatetoProps = (state) => {
+    return {
+        user: state.user,
+        isVisible: state.isVisible
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setVisible: (status) => {
+            dispatch({
+                type: "setVisible",
+                status : status
+            })
+
+        },
+       
+    }
+}
+
+
+export default connect(mapStatetoProps, mapDispatchToProps)(ShowUserBox);

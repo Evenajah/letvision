@@ -4,12 +4,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
-
 // stylesheet
 import styles from '../styles';
-
-// userAuth
-import userData from '../component/UserData';
 
 // fire
 import * as firebase from 'firebase';
@@ -18,11 +14,14 @@ import * as firebase from 'firebase';
 import TabNavigation from '../navigation/TabNavigation';
 
 
-export default class SelectStatUserScreen extends React.Component {
-    constructor(props) {
+// redux
+import { connect } from 'react-redux';
+
+
+class SelectStatUserScreen extends React.Component {
+    constructor (props) {
         super(props);
         this.state = {
-            userId: userData.currentUser.uid,
             addStat: false
         }
 
@@ -30,15 +29,21 @@ export default class SelectStatUserScreen extends React.Component {
     }
 
     addStatUser = stat => {
-        firebase.database().ref(`/users/${this.state.userId}`).update({
-            stat: stat
-        }).then(() => {
-           this.setState({
-               addStat:true
-           })
-        }).catch((err) => {
-            console.log('error', err);
-        });
+        firebase
+            .database()
+            .ref(`/users/${this.props.user.uid}`)
+            .update({
+                stat: stat
+            })
+            .then(() => {
+                this.setState({
+                    addStat: true
+                });
+                this.props.setStatUser(stat);
+            })
+            .catch((err) => {
+                console.log('error', err);
+            });
     }
 
     render() {
@@ -99,3 +104,24 @@ export default class SelectStatUserScreen extends React.Component {
     }
 }
 
+const mapStatetoProps = (state) => {
+    return {
+        user: state.user,
+    }
+}
+
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setStatUser: (stat) => {
+            dispatch({
+                type: "setStatUser",
+                stat: stat
+            })
+        }
+
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(SelectStatUserScreen);

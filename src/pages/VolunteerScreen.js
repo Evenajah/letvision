@@ -18,15 +18,6 @@ import CardCreateStory from '../component/CardCreateStory';
 
 export default class VolunteerScreen extends React.Component {
 
-    constructor (props) {
-        super(props);
-
-        this.state = {}
-
-    }
-
-
-
 
     render() {
 
@@ -35,7 +26,7 @@ export default class VolunteerScreen extends React.Component {
         return (
             <View style={{ flex: 1 }}>
 
-
+                {/*Header*/}
                 <Head title="LetVision" />
 
 
@@ -49,19 +40,21 @@ export default class VolunteerScreen extends React.Component {
 
                         </View>
 
+                        {/*Chart*/}
                         <Chart />
 
 
                     </View>
 
                     {/*userBox*/}
+                    <ShowUserBox />
 
-                   <ShowUserBox user={this.props.user} navigation={this.props.navigation} />
 
                     {/*card*/}
+                    <CardCreateStory />
 
-                      <CardCreateStory/>
 
+                    {/*How to use*/}
                     <HowToUse />
 
                 </ScrollView>

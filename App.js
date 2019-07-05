@@ -5,12 +5,14 @@ import { AppLoading, Font } from 'expo';
 //navigation
 import Auth from './src/navigation/AuthNavigation';
 
-
 //import Component
 import * as firebase from 'firebase';
 import ApiKeys from './api/ApiKeys';
 import FirstCheck from './src/component/FirstCheck';
 
+//redux;
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 export default class App extends React.Component {
 
@@ -76,9 +78,11 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {(this.state.isAuthenticated) ? <FirstCheck /> : <Auth />}
-        </View>
+        <Provider store={store}>
+          <View style={styles.container}>
+            {(this.state.isAuthenticated) ? <FirstCheck /> : <Auth />}
+          </View>
+        </Provider>
       );
     }
   }

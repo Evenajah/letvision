@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Alert } from 'react-native';
 
 // component
 import { Icon, Button, Avatar } from 'react-native-elements'
@@ -7,12 +7,11 @@ import { Icon, Button, Avatar } from 'react-native-elements'
 // fire
 import * as firebase from 'firebase';
 
-// Nav
-import { withNavigation } from 'react-navigation';
-
 //stylesheet
 import styles from '../styles';
 
+// redux
+import { connect } from 'react-redux';
 
 
 class EditUser extends React.Component {
@@ -23,11 +22,8 @@ class EditUser extends React.Component {
         this.state = {
             firstname: this.props.user.first_name,
             lastname: this.props.user.last_name,
-            isUpdateSuccess:false
+            updateObject: {},
         }
-        console.log("Nav",this.props.navigation);
-        this.updateUser = this.updateUser.bind(this);
-
     }
 
     updateUser = () => {
@@ -36,21 +32,31 @@ class EditUser extends React.Component {
                 .database()
                 .ref(`/users/${this.props.user.uid}`)
                 .update({
-                    first_name:this.state.firstname,
-                    last_name:this.state.lastname
+                    first_name: this.state.firstname,
+                    last_name: this.state.lastname
                 })
                 .then(() => {
-                    alert('Successfully Update');
-                    this.props.navigation.navigate('Home');
+                    this.setState({
+                        updateObject: {
+                            first_name: this.state.firstname,
+                            last_name: this.state.lastname
+                        }
+                    });
+
+
+                    this.props.updateUser(this.state.updateObject);
+                    this.props.setVisible(false);
+                    Alert.alert('Success', 'The personal data is change!');
+
                 })
                 .catch((err) => {
-                    alert(err);
+                    Alert.alert('error', err);
                 });
 
-                
+
 
         } else {
-            alert('Please input to all field', 'Warning')
+            Alert.alert('warning', 'please input to all field');
         }
     }
 
@@ -120,5 +126,34 @@ class EditUser extends React.Component {
     }
 }
 
-export default withNavigation(EditUser);
+const mapStatetoProps = (state) => {
+    return {
+        user: state.user,
+        isVisible: state.isVisible
+    }
+}
+
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setVisible: (status) => {
+            dispatch({
+                type: "setVisible",
+                status: status
+            })
+
+        },
+
+        updateUser: (user) => {
+            dispatch({
+                type: "updateUser",
+                objectUser: user
+            })
+        }
+
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(EditUser);
 
