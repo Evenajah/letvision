@@ -14,7 +14,7 @@ class Menu extends React.Component {
                 <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
 
                     <Icon
-                        name='bars'
+                        name='home'
                         type='font-awesome'
                         color='#ffffff'
                     />

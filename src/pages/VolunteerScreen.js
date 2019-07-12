@@ -27,7 +27,7 @@ export default class VolunteerScreen extends React.Component {
             <View style={{ flex: 1 }}>
 
                 {/*Header*/}
-                <Head title="LetVision" />
+                <Head title='Letvision' />
 
 
                 <ScrollView style={styles.wrapVol}>

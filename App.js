@@ -61,6 +61,7 @@ export default class App extends React.Component {
   _loadResourcesAsync = async () => {
     return Promise.all([
       Font.loadAsync({
+        'Estilo' : require('./assets/fonts/Estilo-Regular.otf'),
         'Kanit-Light': require('./assets/fonts/Kanit-Light.ttf'),
       }),
     ]);

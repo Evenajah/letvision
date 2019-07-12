@@ -11,7 +11,7 @@ import SettingScreen from "../pages/SettingScreen";
 
 // Icon
 import { Icon } from 'react-native-elements'
-import EditUser from '../component/EditUser';
+
 
 
 
@@ -45,7 +45,7 @@ const Navigation = createBottomTabNavigator({
             )
         }
     },
-    Storys: {
+    Setting: {
         screen: SettingScreen,
         navigationOptions: {
             tabBarLabel: 'Storys',

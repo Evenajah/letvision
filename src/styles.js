@@ -284,8 +284,68 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
+    },
+
+    //settingScreen
+    wrapSettingItem:{
+        flexDirection:'row',
+        backgroundColor:'#fff',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems:'center',
+        width: Dimensions.get('window').width - 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        padding:25,
+       
+    },
+
+    iconSetting:{
+        justifyContent: 'center',
+        alignItems:'center',
+        alignSelf:'center',
+        padding:15,
+       
+    },
+
+    textIconSetting: {
+        fontFamily: 'Kanit-Light',
+        fontSize: 15,
+        color: '#CD5C5C',
+        textAlign:'center'
+    },
+
+    contactContent:{
+        flexDirection:'row',
+        
+    },
+
+    wrapContact:{
+        marginVertical:10,
+        backgroundColor:'#DCDCDC',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems:'center',
+        width: Dimensions.get('window').width - 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        padding:15,
     }
 
+
+  
 
 });
 
