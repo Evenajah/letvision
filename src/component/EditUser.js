@@ -30,7 +30,7 @@ class EditUser extends React.Component {
         if (this.state.firstname && this.state.lastname !== '') {
             firebase
                 .database()
-                .ref(`/users/${this.props.user.uid}`)
+                .ref(`/users/${this.props.user.uid}/personaldata`)
                 .update({
                     first_name: this.state.firstname,
                     last_name: this.state.lastname
@@ -49,8 +49,8 @@ class EditUser extends React.Component {
                     Alert.alert('Success', 'The personal data is change!');
 
                 })
-                .catch((err) => {
-                    Alert.alert('error', err);
+                .catch((error) => {
+                    Alert.alert('error', error.message);
                 });
 
 

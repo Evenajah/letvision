@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Dimensions } from 'react-native';
 
 //stylesheet
 import styles from '../styles';
@@ -9,6 +9,10 @@ import Head from '../component/Head';
 import ShowUserBox from '../component/ShowUserBox';
 import SettingUser from '../component/SettingUser';
 import ContactUs from '../component/ContactUs';
+import { Button, Icon } from 'react-native-elements';
+
+//fire
+import * as firebase from 'firebase';
 
 
 export default class SettingScreen extends React.Component {
@@ -28,6 +32,24 @@ export default class SettingScreen extends React.Component {
           <SettingUser />
 
           <ContactUs />
+
+
+          <Button
+            icon={
+              <Icon
+                name='sign-out'
+                type='font-awesome'
+                size={15}
+                color="white"
+              />
+            }
+            iconLeft
+            title="ออกจากระบบ"
+            buttonStyle={{ backgroundColor: '#CD5C5C' }}
+            containerStyle={{ width: Dimensions.get('window').width - 15, alignSelf: 'center' }}
+            titleStyle={{ fontFamily: 'Kanit-Light', marginLeft: 10 }}
+            onPress={() => (firebase.auth().signOut())}
+          />
 
         </ScrollView>
 

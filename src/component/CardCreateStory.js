@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 // component
 import { Icon, Button, Card } from 'react-native-elements'
@@ -7,10 +7,6 @@ import { Icon, Button, Card } from 'react-native-elements'
 
 //stylesheet
 import styles from '../styles';
-
-
-
-
 
 
 

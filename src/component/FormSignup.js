@@ -10,6 +10,7 @@ import styles from '../styles';
 import moment from 'moment';
 
 
+
 export default class FormSignin extends React.Component {
 
     constructor(props) {
@@ -44,18 +45,18 @@ export default class FormSignin extends React.Component {
 
         //createUser
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
-
-
+            .then((response) => {
+                
                 //add data in db
                 firebase
                     .database()
-                    .ref('/users/')
-                    .push({
+                    .ref(`/users/${response.user.uid}/personaldata`)
+                    .update({
                         email: this.state.email,
                         account_type: "email",
                         created_at: date,
                         last_logged_in: date,
+                        profile_picture:'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/red-user-icon.png'
                     })
 
                 Alert.alert("Success!", "Succesfully Signup");

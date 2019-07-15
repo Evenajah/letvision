@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "expo-secure-store": "^5.0.1",
     "firebase": "^6.0.4",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",

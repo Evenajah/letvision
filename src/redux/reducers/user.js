@@ -31,7 +31,16 @@ const user = (state = {}, action) => {
                 stat: action.stat
             }
             return state;
+
             
+        case 'setMail':
+            delete state.email;
+            state = {
+                ...state,
+                email: action.mail
+            }
+            return state;
+
 
         default:
             return {

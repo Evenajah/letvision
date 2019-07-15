@@ -29,9 +29,10 @@ class SelectStatUserScreen extends React.Component {
     }
 
     addStatUser = stat => {
+     
         firebase
-            .database()
-            .ref(`/users/${this.props.user.uid}`)
+            .database() 
+            .ref(`/users/${this.props.user.uid}/personaldata`)
             .update({
                 stat: stat
             })

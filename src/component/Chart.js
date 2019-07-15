@@ -13,6 +13,7 @@ import Loading from '../pages/Loading';
 // Stylesheet
 import styles from '../styles';
 
+
 export default class Chart extends React.Component {
 
     constructor (props) {
@@ -33,11 +34,12 @@ export default class Chart extends React.Component {
             const response = data.toJSON();
 
             Object.values(response).forEach(item => {
-                if (item.stat === 'Volunteer') {
+               
+                if (item.personaldata.stat === 'Volunteer') {
                     this.setState({
                         countVolunteer: this.state.countVolunteer + 1
                     })
-                } else if (item.stat === 'Blind') {
+                } else if (item.personaldata.stat === 'Blind') {
                     this.setState({
                         countBlind: this.state.countBlind + 1
                     })

@@ -31,11 +31,12 @@ class FirstCheck extends React.Component {
     }
 
     componentDidMount() {
-        firebase.database().ref(`/users/${this.state.userId.uid}`).once('value', (data) => {
+        firebase.database().ref(`/users/${this.state.userId.uid}/personaldata`).once('value', (data) => {
             this.setState({
                 userData:{ ...this.state.userId, ...data.toJSON() }
             })
-            // console.log('userData',this.state.userData)
+
+            
         }).then(() => {
             this.props.setUser(this.state.userData);
             this.setState({ isLoading: true })

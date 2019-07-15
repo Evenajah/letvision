@@ -1,21 +1,38 @@
 import React from 'react';
 
-// userAuth
-import CheckStatUser from '../component/CheckStatUser';
+// Screen
+import VolunteerScreen from '../pages/VolunteerScreen';
+import BlindScreen from '../pages/BlindScreen';
+
+// redux
+import { connect } from 'react-redux';
 
 
 
-
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
 
       
 
     render() {
-        return (
-            <CheckStatUser />
-        );
+        if(this.props.user.stat === "Volunteer"){
+            return(
+                <VolunteerScreen />
+            );
+        }else{
+            return(
+                <BlindScreen />
+            );
+        }
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps,null)(HomeScreen);
 
 
 

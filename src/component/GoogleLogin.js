@@ -67,7 +67,7 @@ export default class GoogleLogin extends React.Component {
                                
                                 firebase
                                     .database()
-                                    .ref('/users/' + result.user.uid)
+                                    .ref(`/users/${result.user.uid}/personaldata`)
                                     .set({
                                         email: result.additionalUserInfo.profile.email,
                                         profile_picture: result.additionalUserInfo.profile.picture,

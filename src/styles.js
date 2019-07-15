@@ -248,9 +248,9 @@ const styles = StyleSheet.create({
     },
 
     // editUser
-    wrapEdit:{
-        alignItems:'center',
-        padding:30
+    wrapEdit: {
+        alignItems: 'center',
+        padding: 30
     },
 
 
@@ -287,12 +287,12 @@ const styles = StyleSheet.create({
     },
 
     //settingScreen
-    wrapSettingItem:{
-        flexDirection:'row',
-        backgroundColor:'#fff',
+    wrapSettingItem: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignSelf: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: Dimensions.get('window').width - 15,
         shadowColor: "#000",
         shadowOffset: {
@@ -302,36 +302,35 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        padding:25,
-       
+        padding: 25,
+
     },
 
-    iconSetting:{
+    iconSetting: {
         justifyContent: 'center',
-        alignItems:'center',
-        alignSelf:'center',
-        padding:15,
-       
+        alignItems: 'center',
+        alignSelf: 'center',
+        padding: 15,
+
     },
 
     textIconSetting: {
         fontFamily: 'Kanit-Light',
         fontSize: 15,
         color: '#CD5C5C',
-        textAlign:'center'
+        textAlign: 'center'
     },
 
-    contactContent:{
-        flexDirection:'row',
-        
+    contactContent: {
+        flexDirection: 'row',
     },
 
-    wrapContact:{
-        marginVertical:10,
-        backgroundColor:'#DCDCDC',
+    wrapContact: {
+        marginVertical: 10,
+        backgroundColor: '#DCDCDC',
         justifyContent: 'center',
         alignSelf: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         width: Dimensions.get('window').width - 15,
         shadowColor: "#000",
         shadowOffset: {
@@ -341,12 +340,61 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        padding:15,
+        padding: 15,
+    },
+
+    inputBoxSetting: {
+        fontFamily: 'Kanit-Light',
+        width: 150,
+        height: 40,
+        color: '#ffffff',
+        paddingHorizontal: 5,
+        marginVertical: 10,
+        fontSize: 15
+    },
+
+    btnChangeData: {
+        borderRadius: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: 0,
+        backgroundColor: '#FA8072',
+        width: 280,
+        marginVertical: 20,
+        alignSelf: 'center'
+    },
+
+    shadowOverlay: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        padding: 15,
+    },
+
+    formSetting: {
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+
+    },
+    headerSettingText: {
+        fontFamily: 'Kanit-Light',
+        color: 'white',
+        fontSize: 25,
+        alignSelf: 'center',
+        borderBottomWidth: 0.5,
+        paddingBottom: 10,
+        paddingHorizontal:50,
+        borderBottomColor: '#fff'
     }
 
-
-  
-
 });
+
 
 export default styles;

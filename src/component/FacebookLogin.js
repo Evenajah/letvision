@@ -52,7 +52,7 @@ export default class FacebookLogin extends React.Component {
                             if (result.additionalUserInfo.isNewUser) {
                                 firebase
                                     .database()
-                                    .ref('/users/' + result.user.uid)
+                                    .ref(`/users/${result.user.uid}/personaldata`)
                                     .set({
                                         email: userInfo.email,
                                         profile_picture: userInfo.picture.data.url,
