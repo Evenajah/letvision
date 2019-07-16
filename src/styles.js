@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2.62,
         elevation: 4,
         padding: 25,
+        zIndex: 1
 
     },
 
@@ -390,9 +391,31 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderBottomWidth: 0.5,
         paddingBottom: 10,
-        paddingHorizontal:50,
+        paddingHorizontal: 50,
         borderBottomColor: '#fff'
+    },
+
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    overlayLoading: {
+        backgroundColor: 'transparent', shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        elevation: 0,
     }
+
+
 
 });
 

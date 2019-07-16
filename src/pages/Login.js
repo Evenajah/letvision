@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //import component
 import Logo from '../component/Logo';
-import Form from '../component/Form';
+import Form from '../component/Form/Form';
 import Footer from '../component/Footer';
 
 //stylesheet

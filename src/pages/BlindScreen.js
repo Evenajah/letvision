@@ -7,7 +7,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 
 //import component
 import Logo from '../component/Logo';
-import FormSignup from '../component/FormSignup';
+import FormSignup from '../component/Form/FormSignup';
 import Footer from '../component/Footer';
 
 //stylesheet

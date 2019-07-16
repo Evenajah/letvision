@@ -8,7 +8,7 @@ import { Icon, Button, Avatar } from 'react-native-elements'
 import * as firebase from 'firebase';
 
 //stylesheet
-import styles from '../styles';
+import styles from '../../styles';
 
 // redux
 import { connect } from 'react-redux';
@@ -27,6 +27,9 @@ class EditUser extends React.Component {
     }
 
     updateUser = () => {
+
+        this.props.setLoading(true);
+
         if (this.state.firstname && this.state.lastname !== '') {
             firebase
                 .database()
@@ -36,6 +39,7 @@ class EditUser extends React.Component {
                     last_name: this.state.lastname
                 })
                 .then(() => {
+                    
                     this.setState({
                         updateObject: {
                             first_name: this.state.firstname,
@@ -45,17 +49,20 @@ class EditUser extends React.Component {
 
 
                     this.props.updateUser(this.state.updateObject);
+                    this.props.setLoading(false);
                     this.props.setVisible(false);
                     Alert.alert('Success', 'The personal data is change!');
 
                 })
                 .catch((error) => {
+                    this.props.setLoading(false);
                     Alert.alert('error', error.message);
                 });
 
 
 
         } else {
+            this.props.setLoading(false);
             Alert.alert('warning', 'please input to all field');
         }
     }
@@ -129,7 +136,8 @@ class EditUser extends React.Component {
 const mapStatetoProps = (state) => {
     return {
         user: state.user,
-        isVisible: state.isVisible
+        isVisible: state.isVisible,
+        loading:state.loading
     }
 }
 
@@ -150,8 +158,15 @@ const mapDispatchToProps = (dispatch) => {
                 type: "updateUser",
                 objectUser: user
             })
-        }
+        },
 
+        setLoading: (status) => {
+            dispatch({
+                  type: "startLoading",
+                  status: status
+            })
+
+      }
     }
 }
 

@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
 
 //stylesheet
-import styles from '../styles';
+import styles from '../../styles';
 
 //timeStamp
 import moment from 'moment';

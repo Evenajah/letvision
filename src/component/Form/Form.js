@@ -4,11 +4,11 @@ import { Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
 
 //stylesheet
-import styles from '../styles';
+import styles from '../../styles';
 
 //component
-import FacebookLogin from './FacebookLogin';
-import Googlelogin from './GoogleLogin';
+import FacebookLogin from '../ProviderLogin/FacebookLogin';
+import Googlelogin from '../ProviderLogin/GoogleLogin';
 
 export default class Form extends React.Component {
 

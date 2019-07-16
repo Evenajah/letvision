@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, Dimensions } from 'react-native';
+import { Text, View, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 
 //stylesheet
 import styles from '../styles';
@@ -9,7 +9,8 @@ import Head from '../component/Head';
 import ShowUserBox from '../component/ShowUserBox';
 import SettingUser from '../component/SettingUser';
 import ContactUs from '../component/ContactUs';
-import { Button, Icon } from 'react-native-elements';
+import LoadingRequest from '../component/Overlay/LoadingRequest';
+import { Button, Icon, Overlay } from 'react-native-elements';
 
 //fire
 import * as firebase from 'firebase';
@@ -51,10 +52,18 @@ export default class SettingScreen extends React.Component {
             onPress={() => (firebase.auth().signOut())}
           />
 
+
         </ScrollView>
+
+
+        <LoadingRequest/>
+
 
       </View>
     );
   }
 }
+
+
+
 

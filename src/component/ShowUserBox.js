@@ -7,7 +7,7 @@ import { Avatar, Icon, Overlay } from 'react-native-elements'
 
 //stylesheet
 import styles from '../styles';
-import EditUser from './EditUser';
+import EditUser from './Overlay/EditUser';
 
 // redux
 import { connect } from 'react-redux';

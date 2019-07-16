@@ -12,7 +12,7 @@ export default class Logo extends React.Component {
 
                 <Image
                     source={require('../images/logo.png')}
-                    style={{ width: 350, height: 150 }}
+                    style={{ width: 350, height: 200 }}
                 />
 
 

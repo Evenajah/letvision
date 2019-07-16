@@ -7,7 +7,7 @@ import { SocialIcon } from 'react-native-elements';
 import moment from 'moment';
 
 //stylesheet
-import styles from '../styles';
+import styles from '../../styles';
 
 export default class GoogleLogin extends React.Component {
 

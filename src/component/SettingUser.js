@@ -1,11 +1,8 @@
 import React from 'react';
-import { Text, View, TextInput, Alert } from 'react-native';
+import { Text, View } from 'react-native';
 
 //stylesheet
 import styles from '../styles';
-
-// fire
-import * as firebase from 'firebase';
 
 // component
 import { Icon, Overlay, Button } from 'react-native-elements'
@@ -13,6 +10,8 @@ import { Icon, Overlay, Button } from 'react-native-elements'
 
 // redux
 import { connect } from 'react-redux';
+import OverlayChangeEmail from './Overlay/OverlayChangeEmail';
+import OverlayHaveProvidor from './Overlay/OverlayHaveProvidor';
 
 
 class SettingUser extends React.Component {
@@ -21,39 +20,12 @@ class SettingUser extends React.Component {
             super();
             this.state = {
                   overlayChangePass: false,
-                  overlayChangeMail: false,
                   newMail: ''
             }
       }
 
-      changeMail = () => {
-            const user = firebase.auth().currentUser;
-
-            user.updateEmail(this.state.newMail)
-                  .then(() => {
-                        firebase
-                              .database()
-                              .ref(`/users/${this.props.user.uid}/personaldata`)
-                              .update({
-                                    email: this.state.newMail
-                              })
-                              .then(() => {
-                                    this.props.updateMail(this.state.newMail);
-                                    this.setState({ overlayChangeMail: false })
-                                    Alert.alert('Successfully Change Email.')
-                              })
-                              .catch((error) => {
-                                    Alert.alert('error', error.message);
-                              });
-                  })
-                  .catch((error) => {
-                        Alert.alert('Warning', error.message)
-                  });
-      }
-
-
-
       render() {
+
             return (
 
                   <View style={styles.wrapSettingItem}>
@@ -66,7 +38,7 @@ class SettingUser extends React.Component {
                                     name='envelope'
                                     type='font-awesome'
                                     color='#CD5C5C'
-                                    onPress={() => this.setState({ overlayChangeMail: true })} />
+                                    onPress={() => this.props.setOverlayChangeEmail(true)} />
                               <Text style={styles.textIconSetting}>เปลี่ยนอีเมล</Text>
                         </View>
 
@@ -101,65 +73,21 @@ class SettingUser extends React.Component {
                         {/*overlayChangeMail*/}
 
                         <Overlay
-                              isVisible={this.state.overlayChangeMail}
+                              isVisible={this.props.overlayChangeEmail}
                               overlayStyle={styles.shadowOverlay}
-                              onBackdropPress={() => this.setState({ overlayChangeMail: false })}
+                              onBackdropPress={() => this.props.setOverlayChangeEmail(false)}
                               overlayBackgroundColor='#CD5C5C'
                               width="auto"
                               height="auto"
                         >
+
                               <View>
-                                    <Text style={styles.headerSettingText}>
-                                          เปลี่ยนอีเมล
-                                    </Text>
-                                    <View style={styles.formSetting}>
-
-
-                                          <Text style={{ fontFamily: 'Kanit-Light', color: 'white', fontSize: 17 }}>
-                                                อีเมลเดิม : {this.props.user.email}
-                                          </Text>
-
-                                    </View>
-
-                                    <View style={styles.flexIcon}>
-
-                                          <Text style={{ fontFamily: 'Kanit-Light', color: 'white', fontSize: 17 }}>
-                                                อีเมลใหม่ :
-                                          </Text>
-
-                                          <TextInput
-                                                style={styles.inputBoxSetting}
-                                                underlineColorAndroid='#ffffff'
-                                                placeholderTextColor='#ffffff'
-                                                onChangeText={newMail => this.setState({ newMail })}
-                                          />
-                                    </View>
-
-                                    <Button
-                                          icon={
-                                                <Icon
-                                                      name='check'
-                                                      type='font-awesome'
-                                                      color='white'
-                                                      size={15}
-
-                                                />
-                                          }
-                                          buttonStyle={styles.btnChangeData}
-                                          title='ตกลง'
-                                          titleStyle={{
-                                                fontFamily: 'Kanit-Light',
-                                                marginLeft: 10
-                                          }}
-                                          onPress={() => this.changeMail()}
-                                    />
+                                    {(this.props.user.account_type === 'email') ? <OverlayChangeEmail /> : <OverlayHaveProvidor/>}
                               </View>
+
                         </Overlay>
 
-
                   </View>
-
-
 
             );
       }
@@ -168,21 +96,23 @@ class SettingUser extends React.Component {
 const mapStatetoProps = (state) => {
       return {
             user: state.user,
+            overlayChangeEmail: state.overlayChangeEmail
       }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
       return {
-            updateMail: (newMail) => {
+            setOverlayChangeEmail: (status) => {
                   dispatch({
-                        type: "setMail",
-                        mail: newMail
+                        type: "setOverlayChangeEmail",
+                        status: status
                   })
 
             }
       }
 }
+
 
 export default connect(mapStatetoProps, mapDispatchToProps)(SettingUser);
 
