@@ -1,9 +1,6 @@
 import React from 'react';
 import userData from './UserData';
 
-// fire
-import * as firebase from 'firebase';
-
 // component
 import Loading from '../pages/Loading';
 import SelectStatUserScreen from '../pages/SelectStatUserScreen';
@@ -14,6 +11,8 @@ import TabNavigation from '../navigation/TabNavigation';
 // redux
 import { connect } from 'react-redux';
 
+// service
+import axios from 'axios';
 
 
 class FirstCheck extends React.Component {
@@ -24,23 +23,29 @@ class FirstCheck extends React.Component {
         this.state = {
             userId: { uid: userData.currentUser.uid },
             isLoading: false,
-            userData:{}
+            userData: {}
         }
 
-        
+
     }
 
     componentDidMount() {
-        firebase.database().ref(`/users/${this.state.userId.uid}/personaldata`).once('value', (data) => {
-            this.setState({
-                userData:{ ...this.state.userId, ...data.toJSON() }
-            })
+        const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+        
+        axios.get(`${service}/${this.state.userId.uid}`)
+            .then((response) => {
+                
+                this.setState({
+                    userData: { ...this.state.userId, ...response.data },
+                    isLoading: true
+                })
 
-            
-        }).then(() => {
-            this.props.setUser(this.state.userData);
-            this.setState({ isLoading: true })
-        });
+                // send to store
+                this.props.setUser(this.state.userData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -66,16 +71,16 @@ class FirstCheck extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        setUser:(user) => {
-           dispatch({
-               type:"setUser",
-               item:user
-           })
+    return {
+        setUser: (user) => {
+            dispatch({
+                type: "setUser",
+                item: user
+            })
 
         }
     }
 }
 
 
-export default connect(null,mapDispatchToProps)(FirstCheck);
+export default connect(null, mapDispatchToProps)(FirstCheck);

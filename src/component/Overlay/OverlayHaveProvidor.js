@@ -1,12 +1,9 @@
 import React from 'react';
 import { Text, View, TextInput, Alert, ActivityIndicator } from 'react-native';
 
-//stylesheet
-import styles from '../../styles';
-
 
 // component
-import { Icon, Button } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 
 
 // redux

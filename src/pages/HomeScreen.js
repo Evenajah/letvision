@@ -7,12 +7,9 @@ import BlindScreen from '../pages/BlindScreen';
 // redux
 import { connect } from 'react-redux';
 
-
-
 class HomeScreen extends React.Component {
 
-      
-
+       
     render() {
         if(this.props.user.stat === "Volunteer"){
             return(

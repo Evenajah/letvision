@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { Font } from 'expo';
+
 
 export default class Logo extends React.Component {
 
@@ -12,7 +12,7 @@ export default class Logo extends React.Component {
 
                 <Image
                     source={require('../images/logo.png')}
-                    style={{ width: 350, height: 200 }}
+                    style={{ width: 450, height: 150 }}
                 />
 
 

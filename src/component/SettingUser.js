@@ -5,13 +5,14 @@ import { Text, View } from 'react-native';
 import styles from '../styles';
 
 // component
-import { Icon, Overlay, Button } from 'react-native-elements'
+import { Icon, Overlay } from 'react-native-elements'
+import OverlayChangeEmail from './Overlay/OverlayChangeEmail';
+import OverlayHaveProvidor from './Overlay/OverlayHaveProvidor';
 
 
 // redux
 import { connect } from 'react-redux';
-import OverlayChangeEmail from './Overlay/OverlayChangeEmail';
-import OverlayHaveProvidor from './Overlay/OverlayHaveProvidor';
+
 
 
 class SettingUser extends React.Component {
