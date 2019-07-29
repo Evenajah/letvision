@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import * as firebase from 'firebase';
 import { SocialIcon } from 'react-native-elements';
 
@@ -9,9 +9,12 @@ import moment from 'moment';
 //stylesheet
 import styles from '../../styles';
 
+//service
+import axios from 'axios';
+
 export default class GoogleLogin extends React.Component {
 
-    constructor(props) {
+    constructor (props) {
         super(props);
     }
 
@@ -57,26 +60,42 @@ export default class GoogleLogin extends React.Component {
                         .signInWithCredential(credential)
                         .then(function (result) {
 
-                             //timestamp
-                             const today = Date.now();
-                             const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
+                            //timestamp
+                            const today = Date.now();
+                            const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
 
                             console.log('user signed in ');
 
                             if (result.additionalUserInfo.isNewUser) {
-                               
-                                firebase
-                                    .database()
-                                    .ref(`/users/${result.user.uid}/personaldata`)
-                                    .set({
-                                        email: result.additionalUserInfo.profile.email,
-                                        profile_picture: result.additionalUserInfo.profile.picture,
-                                        first_name: result.additionalUserInfo.profile.given_name,
-                                        last_name: result.additionalUserInfo.profile.family_name,
-                                        last_logged_in: date,
-                                        account_type: "google",
-                                        created_at: date
+
+                                const formAddData = {
+
+                                    id: result.user.uid,
+                                    email: result.additionalUserInfo.profile.email,
+                                    account_type: "google",
+                                    created_at: date,
+                                    last_logged_in: date,
+                                    first_name: result.additionalUserInfo.profile.given_name,
+                                    last_name: result.additionalUserInfo.profile.family_name,
+                                    profile_picture: result.additionalUserInfo.profile.picture
+
+                                }
+
+                                const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+
+                                // ยิง API
+                                axios.post(service, formAddData)
+                                    .then((response) => {
+
+                                        Alert.alert("Success!", "Succesfully Signup");
+
                                     })
+                                    .catch((err) => {
+
+                                        Alert.alert(err.message);
+
+                                    })
+
 
                             } else {
                                 firebase
@@ -96,7 +115,7 @@ export default class GoogleLogin extends React.Component {
                             var email = error.email;
                             // The firebase.auth.AuthCredential type that was used.
                             var credential = error.credential;
-                            console.log('errorGoogle',error);
+                            console.log('errorGoogle', error);
                             // ...
                         });
                 } else {

@@ -1,17 +1,21 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Alert  } from 'react-native';
 import * as firebase from 'firebase';
 import { SocialIcon } from 'react-native-elements';
+
+//service
+import axios from 'axios';
 
 //timeStamp
 import moment from 'moment';
 
 export default class FacebookLogin extends React.Component {
 
-    constructor(props) {
+    constructor (props) {
         super(props);
 
     }
+
 
     //Login Facebook
     async loginWithFacebook() {
@@ -50,17 +54,33 @@ export default class FacebookLogin extends React.Component {
                             const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
 
                             if (result.additionalUserInfo.isNewUser) {
-                                firebase
-                                    .database()
-                                    .ref(`/users/${result.user.uid}/personaldata`)
-                                    .set({
-                                        email: userInfo.email,
-                                        profile_picture: userInfo.picture.data.url,
-                                        first_name: userInfo.first_name,
-                                        last_logged_in: date,
-                                        last_name: userInfo.last_name,
-                                        account_type: "facebook",
-                                        created_at: date
+
+                                const formAddData = {
+
+                                    id: result.user.uid,
+                                    email: userInfo.email,
+                                    account_type: "facebook",
+                                    created_at: date,
+                                    last_logged_in: date,
+                                    first_name: userInfo.first_name,
+                                    last_name: userInfo.last_name,
+                                    profile_picture: userInfo.picture.data.url
+
+                                }
+
+                                const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+
+                                // ยิง API
+                                axios.post(service, formAddData)
+                                    .then((response) => {
+
+                                        Alert.alert("Success!", "Succesfully Signup");
+
+                                    })
+                                    .catch((err) => {
+
+                                        Alert.alert(err.message);
+
                                     })
 
                             } else {
@@ -77,7 +97,7 @@ export default class FacebookLogin extends React.Component {
                             console.log(error)
                         })
                 }
-            } 
+            }
         } catch ({ message }) {
             alert(`Facebook Login Error: ${message}`);
         }

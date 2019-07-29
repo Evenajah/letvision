@@ -8,12 +8,14 @@ import styles from '../../styles';
 
 //timeStamp
 import moment from 'moment';
+import axios from 'axios';
+
 
 
 
 export default class FormSignin extends React.Component {
 
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         YellowBox.ignoreWarnings(['Setting a timer']);
@@ -46,20 +48,36 @@ export default class FormSignin extends React.Component {
         //createUser
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then((response) => {
-                
-                //add data in db
-                firebase
-                    .database()
-                    .ref(`/users/${response.user.uid}/personaldata`)
-                    .update({
-                        email: this.state.email,
-                        account_type: "email",
-                        created_at: date,
-                        last_logged_in: date,
-                        profile_picture:'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/red-user-icon.png'
+
+                // service
+                const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+
+                const formAddData = {
+
+                    id: response.user.uid,
+                    email: this.state.email,
+                    account_type: "email",
+                    created_at: date,
+                    last_logged_in: date,
+                    first_name: this.state.email,
+                    last_name: "",
+                    profile_picture: 'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/256/red-user-icon.png'
+
+                }
+
+                // ยิง API
+                axios.post(service, formAddData)
+                    .then((response) => {
+
+                        Alert.alert("Success!", "Succesfully Signup");
+
+                    })
+                    .catch((err) => {
+
+                        Alert.alert(err.message);
+
                     })
 
-                Alert.alert("Success!", "Succesfully Signup");
 
             }, (error) => {
 
