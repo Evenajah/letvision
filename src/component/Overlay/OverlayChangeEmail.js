@@ -14,6 +14,8 @@ import { Icon, Button } from 'react-native-elements'
 // redux
 import { connect } from 'react-redux';
 
+//service
+import axios from 'axios';
 
 class OverlayChangeEmail extends React.Component {
 
@@ -35,29 +37,45 @@ class OverlayChangeEmail extends React.Component {
             const user = firebase.auth().currentUser;
             user.updateEmail(this.state.newMail)
                   .then(() => {
-                        firebase
-                              .database()
-                              .ref(`/users/${this.props.user.uid}/personaldata`)
-                              .update({
-                                    email: this.state.newMail
-                              })
-                              .then(() => {
 
-                                    this.props.updateMail(this.state.newMail);
-                                    this.props.setLoading(false);
-                                    this.props.setOverlayChangeEmail(false);
-                                    Alert.alert('Success', 'Successfully Change Email.')
 
+                        const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+
+                        const patchEmail = {
+                              id: this.props.user.uid,
+                              type: 'changeEmail',
+                              newMail: this.state.newMail
+                        }
+
+                        axios.put(service, patchEmail)
+                              .then((response) => {
+
+                                    if (response.data === "success") {
+
+                                          // patch Redux store
+                                          this.props.updateMail(this.state.newMail);
+
+                                          // close loading
+                                          this.props.setLoading(false);
+
+                                          // close overlay
+                                          this.props.setOverlayChangeEmail(false);
+
+                                          // alert
+                                          Alert.alert('Success', 'Successfully Change Email.')
+                                    }
                               })
-                              .catch((error) => {
+                              .catch((err) => {
+
                                     this.props.setLoading(false);
-                                    Alert.alert('error', error.message);
-                              });
+                                    Alert.alert('Warning', err.message)
+                              })
                   })
                   .catch((error) => {
                         this.props.setLoading(false);
                         Alert.alert('Warning', error.message)
                   });
+
       }
 
 
@@ -83,7 +101,7 @@ class OverlayChangeEmail extends React.Component {
 
                               <Text style={{ fontFamily: 'Kanit-Light', color: 'white', fontSize: 17 }}>
                                     อีเมลใหม่ :
-                                          </Text>
+                              </Text>
 
                               <TextInput
                                     style={styles.inputBoxSetting}

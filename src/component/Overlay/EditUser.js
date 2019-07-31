@@ -4,15 +4,14 @@ import { View, TextInput, Alert } from 'react-native';
 // component
 import { Icon, Button, Avatar } from 'react-native-elements'
 
-// fire
-import * as firebase from 'firebase';
-
 //stylesheet
 import styles from '../../styles';
 
 // redux
 import { connect } from 'react-redux';
 
+// service
+import axios from 'axios';
 
 class EditUser extends React.Component {
 
@@ -31,36 +30,50 @@ class EditUser extends React.Component {
         this.props.setLoading(true);
 
         if (this.state.firstname && this.state.lastname !== '') {
-            firebase
-                .database()
-                .ref(`/users/${this.props.user.uid}/personaldata`)
-                .update({
-                    first_name: this.state.firstname,
-                    last_name: this.state.lastname
+
+            const service = 'https://us-central1-letview-db16d.cloudfunctions.net/user';
+
+            const patchName = {
+                id: this.props.user.uid,
+                type: 'changeName',
+                first_name: this.state.firstname,
+                last_name: this.state.lastname
+            }
+
+            axios.put(service, patchName)
+                .then((response) => {
+                
+                    if (response.data === "success") {
+
+                        // set object to redux store
+                        this.setState({
+                            updateObject: {
+                                first_name: this.state.firstname,
+                                last_name: this.state.lastname
+                            }
+                        });
+
+                        // patch Redux user
+                        this.props.updateUser(this.state.updateObject);
+
+                        // ปิด loading
+                        this.props.setLoading(false);
+
+                        //ปิด Overlay
+                        this.props.setVisible(false);
+
+                        // Alert
+                        Alert.alert('Success', 'The personal data is change!');
+                    }
+
                 })
-                .then(() => {
-                    
-                    this.setState({
-                        updateObject: {
-                            first_name: this.state.firstname,
-                            last_name: this.state.lastname
-                        }
-                    });
+                .catch((err) => {
 
-
-                    this.props.updateUser(this.state.updateObject);
                     this.props.setLoading(false);
-                    this.props.setVisible(false);
-                    Alert.alert('Success', 'The personal data is change!');
+                    Alert.alert('error', err.message);
 
                 })
-                .catch((error) => {
-                    this.props.setLoading(false);
-                    Alert.alert('error', error.message);
-                });
-
-
-
+          
         } else {
             this.props.setLoading(false);
             Alert.alert('warning', 'please input to all field');
@@ -137,7 +150,7 @@ const mapStatetoProps = (state) => {
     return {
         user: state.user,
         isVisible: state.isVisible,
-        loading:state.loading
+        loading: state.loading
     }
 }
 
@@ -162,11 +175,11 @@ const mapDispatchToProps = (dispatch) => {
 
         setLoading: (status) => {
             dispatch({
-                  type: "startLoading",
-                  status: status
+                type: "startLoading",
+                status: status
             })
 
-      }
+        }
     }
 }
 

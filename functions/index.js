@@ -22,7 +22,6 @@ user.get('/:id', (req, res) => {
 // add user
 user.post('/', (req, res) => {
 
-
       //add data in db
       firebase
             .database()
@@ -40,6 +39,48 @@ user.post('/', (req, res) => {
       res.send(res.status)
 
 });
+
+// patch user
+user.put('/', (req, res) => {
+
+      switch (req.body.type) {
+
+            // เปลี่ยนเมล
+            case 'changeEmail':
+                  firebase
+                        .database()
+                        .ref(`/users/${req.body.id}/personaldata`)
+                        .update({
+                              email: req.body.newEmail
+                        })
+                        .then(() => {
+                              return res.status(200).send('success');
+                        })
+                        .catch((err) => {
+                              res.status(400).send(err);
+                        });
+                        
+                  break;
+
+            case 'changeName':
+                  // เปลีั่ยนชื่อ
+                  firebase
+                        .database()
+                        .ref(`/users/${req.body.id}/personaldata`)
+                        .update({
+                              first_name: req.body.first_name,
+                              last_name: req.body.last_name
+                        })
+                        .then(() => {
+                              return res.status(200).send('success');
+                        })
+                        .catch((err) => {
+                              res.status(400).send(err);
+                        });
+                  break;
+      }
+
+})
 
 
 // Expose Express API as a single Cloud Function:

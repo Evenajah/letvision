@@ -8,6 +8,8 @@ import styles from '../../styles';
 
 //timeStamp
 import moment from 'moment';
+
+// service
 import axios from 'axios';
 
 
@@ -70,7 +72,7 @@ export default class FormSignin extends React.Component {
                     .then((response) => {
 
                         Alert.alert("Success!", "Succesfully Signup");
-
+                        console.log(response.data);
                     })
                     .catch((err) => {
 
