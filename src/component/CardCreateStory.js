@@ -7,10 +7,14 @@ import { Icon, Button, Card } from 'react-native-elements'
 
 //stylesheet
 import styles from '../styles';
+import OverlayCreateStory from './Overlay/OverlayCreateStory';
 
 
+// redux
+import { connect } from 'react-redux';
 
-export default class CardCreateStory extends React.Component {
+
+class CardCreateStory extends React.Component {
 
 
     render() {
@@ -60,7 +64,12 @@ export default class CardCreateStory extends React.Component {
                         fontFamily: 'Kanit-Light',
                         marginLeft: 10
                     }}
+                    onPress={() => this.props.setOverlayCreateStory(true)}
+
                 />
+
+
+                <OverlayCreateStory />
 
             </Card>
 
@@ -68,4 +77,28 @@ export default class CardCreateStory extends React.Component {
         );
     }
 }
+
+
+const mapStatetoProps = (state) => {
+    return {
+        user: state.user,
+        overlayCreateStory: state.overlayCreateStory,
+        loading: state.loading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setOverlayCreateStory: (status) => {
+            dispatch({
+                type: "setOverlayCreateStory",
+                status: status
+            })
+
+        },
+    }
+}
+
+
+export default connect(mapStatetoProps, mapDispatchToProps)(CardCreateStory);
 

@@ -413,6 +413,51 @@ const styles = StyleSheet.create({
         shadowOpacity: 0,
         shadowRadius: 0,
         elevation: 0,
+    },
+
+    //textareaform
+    textAreaForm: {
+        backgroundColor: '#CD5C5C',
+        padding: 10,
+        textAlignVertical: 'top',
+        fontFamily: 'Kanit-Light',
+        fontSize:17,
+        color:'#fff',
+        marginTop:10,
+        borderRadius:15,
+        justifyContent: 'flex-end' 
+    },
+
+    headerCreateStoryText: {
+        fontFamily: 'Kanit-Light',
+        color: 'white',
+        fontSize: 25,
+        alignSelf: 'center',
+        borderBottomWidth: 0.5,
+        paddingBottom: 10,
+        justifyContent:'center',
+        borderBottomColor: '#CD5C5C',
+        color:'#CD5C5C',
+        marginTop:15,
+        marginBottom:15,
+      
+    },
+
+    topicForm:{
+        backgroundColor: '#CD5C5C',
+        padding: 10,
+        textAlignVertical: 'top',
+        fontFamily: 'Kanit-Light',
+        fontSize:17,
+        color:'#fff',
+        borderRadius:15
+    },
+
+    btnFormAddStory:{
+        position: 'absolute', 
+        bottom: 0, 
+        right: 0,
+        flexDirection:'row'
     }
 
 
