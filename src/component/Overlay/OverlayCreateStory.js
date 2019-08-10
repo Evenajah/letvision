@@ -3,7 +3,7 @@ import React from 'react';
 
 // component
 import { Overlay } from 'react-native-elements'
-import { View, ImageBackground } from 'react-native';
+import {  ImageBackground } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -16,25 +16,21 @@ class OverlayCreateStory extends React.Component {
 
       render() {
 
-
-
             return (
                   <Overlay
                         isVisible={this.props.overlayCreateStory}
-                        
+
                         width="auto"
                         height="auto"
                         fullScreen={true}
                         onBackdropPress={() => this.props.setOverlayCreateStory(false)}
                   >
-                       
-                              
+                        <ImageBackground source={{ uri: 'https://www.solidbackgrounds.com/images/1920x1080/1920x1080-indian-red-solid-color-background.jpg' }} style={{ width: '100%', height: '100%' }}>
                         
+                              {/* form add ข้อมูล*/}
+                              <FormStory />
 
-                        {/* form add ข้อมูล*/}
-
-                        <FormStory />
-                        
+                        </ImageBackground>
 
 
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View, TextInput, Dimensions, ScrollView } from 'react-native';
+import { Text, View, TextInput, Dimensions, ScrollView, Alert } from 'react-native';
 
 
 // component
 import { Icon, Button, Card, Image, Avatar } from 'react-native-elements'
+import LoadingRequest from '../Overlay/LoadingRequest';
 
 
 // redux
@@ -13,11 +14,79 @@ import { connect } from 'react-redux';
 //stylesheet
 import styles from '../../styles';
 
+
+// service
+import axios from 'axios';
+
+//timeStamp
+import moment from 'moment';
+
+
+
 class FormStory extends React.Component {
 
+      constructor (props) {
+
+            super(props);
+            this.state = {
+                  topic: '',
+                  detail: ''
+            }
+
+      }
+
+      addStory = () => {
+
+            if (this.state.topic.length < 10 && this.state.detail.length < 10) {
+
+                  Alert.alert('Warning !', 'Minimum of topic is 10 characters and detail is 300 characters.');
+
+            } else {
+
+                  // Start Loading
+                  this.props.setLoading(true);
+
+
+                  //timestamp
+                  const today = Date.now();
+                  const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
+
+
+                  //service
+                  const service = 'https://us-central1-letview-db16d.cloudfunctions.net/story';
+                  const addStoryObj = {
+                        userId: this.props.user.uid,
+                        topic: this.state.topic,
+                        detail: this.state.detail,
+                        created_at: date,
+                        photoUrl: this.props.user.profile_picture
+                  }
+
+                  axios.post(service, addStoryObj)
+                        .then((response) => {
+                              if (response.data === 'success') {
+
+                                    // Stop Loading
+                                    this.props.setLoading(false);
+
+                                    // SetState
+                                    this.setState({
+                                          topic: '',
+                                          detail: ''
+                                    })
+
+                                    Alert.alert("Success!", "Succesfully Add Your Story.");
+                              }
+                        })
+                        .catch((err) => {
+                              Alert.alert("Error!", err.message);
+                        })
+
+            }
+
+      }
+
       render() {
-
-
 
             return (
                   <View style={{ flex: 1 }}>
@@ -25,19 +94,18 @@ class FormStory extends React.Component {
                         <ScrollView>
 
                               <Image
-                                    source={{ uri: 'https://images.unsplash.com/photo-1512799906445-d591d53082c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }}
+                                    source={{ uri: 'https://cdn.pixabay.com/photo/2017/12/01/22/16/people-2991882_1280.jpg' }}
                                     style={{
                                           width: Dimensions.get('window').width,
                                           height: 300,
                                           justifyContent: 'center',
                                           alignSelf: 'center',
-                                          borderRadius: 25,
+                                         
                                     }}
                               />
                               <View style={styles.viewInput}>
 
                                     <Text style={styles.headerCreateStoryText}>
-
 
                                           สร้างเรื่องราวของคุณ
 
@@ -47,14 +115,19 @@ class FormStory extends React.Component {
                               <TextInput
                                     placeholder='Topic'
                                     placeholderTextColor='#fff'
+                                    value={this.state.topic}
+                                    onChangeText={topic => this.setState({ topic })}
                                     style={styles.topicForm}
+
                               />
 
                               <TextInput
                                     multiline={true}
                                     numberOfLines={5}
+                                    value={this.state.detail}
                                     placeholder='Say something....'
                                     placeholderTextColor='#fff'
+                                    onChangeText={detail => this.setState({ detail })}
                                     style={styles.textAreaForm}
                               />
 
@@ -62,7 +135,7 @@ class FormStory extends React.Component {
 
 
                         </ScrollView>
-                        
+
                         <View style={styles.btnFormAddStory}>
                               <Icon
                                     raised
@@ -71,7 +144,7 @@ class FormStory extends React.Component {
                                     color='#F08080'
                                     reverse={true}
                                     underlayColor='#FF6347'
-                                    containerStyle={{opacity:0.8}}
+                                    containerStyle={{ opacity: 0.8 }}
                                     onPress={() => this.props.setOverlayCreateStory(false)}
                               />
 
@@ -82,14 +155,17 @@ class FormStory extends React.Component {
                                     color='#FA8072'
                                     reverse={true}
                                     underlayColor='#FF6347'
-                                    containerStyle={{opacity:0.8}}
-                                    onPress={() => console.log('hello')}
+                                    containerStyle={{ opacity: 0.8 }}
+                                    onPress={() => this.addStory()}
 
                               />
 
 
 
                         </View>
+
+                        <LoadingRequest />
+
                   </View>
 
 
@@ -115,6 +191,14 @@ const mapDispatchToProps = (dispatch) => {
                   })
 
             },
+
+            setLoading: (status) => {
+                  dispatch({
+                        type: "startLoading",
+                        status: status
+                  })
+
+            }
       }
 }
 

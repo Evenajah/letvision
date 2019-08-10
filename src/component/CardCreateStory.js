@@ -32,7 +32,7 @@ class CardCreateStory extends React.Component {
                     color: '#CD5C5C'
                 }}
 
-                image={require('../images/volunteer.jpg')}>
+                image={require('../images/story.jpg')}>
 
                 <Text style={{
                     marginBottom: 10,

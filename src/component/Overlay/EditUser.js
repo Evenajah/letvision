@@ -13,6 +13,9 @@ import { connect } from 'react-redux';
 // service
 import axios from 'axios';
 
+
+import LoadingRequest from './LoadingRequest';
+
 class EditUser extends React.Component {
 
     constructor (props) {
@@ -139,6 +142,8 @@ class EditUser extends React.Component {
                     }}
                     onPress={() => this.updateUser()}
                 />
+
+                <LoadingRequest/>
 
             </View>
 

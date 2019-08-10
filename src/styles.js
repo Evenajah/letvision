@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
 
     //textareaform
     textAreaForm: {
-        backgroundColor: '#CD5C5C',
+        backgroundColor: '#E9967A',
         padding: 10,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
         color:'#fff',
         marginTop:10,
         borderRadius:15,
-        justifyContent: 'flex-end' 
+        marginHorizontal:15
     },
 
     headerCreateStoryText: {
@@ -436,21 +436,22 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         paddingBottom: 10,
         justifyContent:'center',
-        borderBottomColor: '#CD5C5C',
-        color:'#CD5C5C',
+        borderBottomColor: '#fff',
         marginTop:15,
         marginBottom:15,
       
     },
 
     topicForm:{
-        backgroundColor: '#CD5C5C',
+        backgroundColor: '#E9967A',
         padding: 10,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
         fontSize:17,
         color:'#fff',
-        borderRadius:15
+        borderRadius:15,
+        marginHorizontal:15,
+        marginBottom:10
     },
 
     btnFormAddStory:{

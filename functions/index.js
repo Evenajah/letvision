@@ -8,6 +8,7 @@ const firebase = admin.initializeApp(functions.config().firebase);
 const express = require('express');
 const cors = require('cors');
 const user = express();
+const story = express();
 
 // USer REST APIs
 user.use(cors({ origin: true }));
@@ -59,7 +60,7 @@ user.put('/', (req, res) => {
                         .catch((err) => {
                               res.status(400).send(err);
                         });
-                        
+
                   break;
 
             case 'changeName':
@@ -82,6 +83,35 @@ user.put('/', (req, res) => {
 
 })
 
+/**************************************************End User API******************************************************* */
+
+// USer REST APIs
+story.use(cors({ origin: true }));
+
+// CRUD
+// add story
+story.post('/', (req, res) => {
+
+      //add data in db
+      firebase
+            .database()
+            .ref(`/stories/`)
+            .push({
+                  userId: req.body.userId,
+                  topic: req.body.topic,
+                  detail: req.body.detail,
+                  created_at: req.body.created_at,
+                  photoUrl : req.body.photoUrl
+            })
+
+      res.status(200).send('success');
+
+});
+
+
+
+
 
 // Expose Express API as a single Cloud Function:
 exports.user = functions.https.onRequest(user);
+exports.story = functions.https.onRequest(story);
