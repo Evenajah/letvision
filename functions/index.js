@@ -101,12 +101,50 @@ story.post('/', (req, res) => {
                   topic: req.body.topic,
                   detail: req.body.detail,
                   created_at: req.body.created_at,
-                  photoUrl : req.body.photoUrl
+                  photoUrl: req.body.photoUrl
             })
 
       res.status(200).send('success');
 
 });
+
+// get all story
+story.get('/', (req, res) => {
+
+      var userStory = firebase.database().ref('/users/');
+      var story = firebase.database().ref('/stories/');
+      
+
+      story.once('value', (storyData) => {
+
+            var objStory = [];
+            
+            storyData.forEach((items => {
+
+                  // ดึง key มาทำ object
+                  var fk = storyData.child(items.key).val();
+
+                  // ยิงหา user ที่ตรงกับ key
+                  userStory.child(`${fk.userId}/personaldata/`).on('value', (userData) => {
+
+                        // เพิ่ม object user ที่ผูกกับ story แล้ว
+                        objStory.push({
+                              storyId: items.key,
+                              storyItem: fk,
+                              userCreate: userData
+                        })
+                  })
+            }))
+
+            res.status(200).send(objStory);
+      }
+      
+      )
+
+
+
+});
+
 
 
 

@@ -7,7 +7,7 @@ import { createBottomTabNavigator, createAppContainer, withNavigation } from 're
 //Screen
 import HomeScreen from "../pages/HomeScreen";
 import SettingScreen from "../pages/SettingScreen";
-
+import StoryScreen from "../pages/StoryScreen";
 
 // Icon
 import { Icon } from 'react-native-elements'
@@ -32,7 +32,7 @@ const Navigation = createBottomTabNavigator({
 
     },
     Story: {
-        screen: SettingScreen,
+        screen: StoryScreen,
         navigationOptions: {
             tabBarLabel: 'Story',
             tabBarIcon: ({ tintColor }) => (

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, Image, Dimensions } from 'react-native';
 
-// component
-import { Icon, Button, Card } from 'react-native-elements'
 
 //stylesheet
 import styles from '../styles';
