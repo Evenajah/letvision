@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, ScrollView, RefreshControl } from 'react-native';
-import { Icon, Card, Button } from 'react-native-elements';
+import { Text, ScrollView, RefreshControl, View, Alert } from 'react-native';
+import { Icon, Card, Button, Avatar } from 'react-native-elements';
 
 
 //stylesheet
@@ -12,10 +12,13 @@ import Head from '../component/Head';
 
 // service
 import axios from 'axios';
+import LoadingRequest from '../component/Overlay/LoadingRequest';
+
+// redux
+import { connect } from 'react-redux';
 
 
-
-export default class StoryScreen extends React.Component {
+class StoryScreen extends React.Component {
 
       constructor () {
             super();
@@ -29,19 +32,31 @@ export default class StoryScreen extends React.Component {
 
       componentDidMount = () => {
 
+            // load
+            this.props.setLoading(true);
+
             // ยิง API
             const service = `https://us-central1-letview-db16d.cloudfunctions.net/story`;
-            axios.get(service).then((response) => {
-                  this.setState({
-                        storyObj: response.data
-                  })
+            axios.get(service)
+                  .then((response) => {
 
-            })
+                        this.setState({
+                              storyObj: response.data
+                        })
+
+                        // load success
+                        this.props.setLoading(false);
+
+                  })
+                  .catch((error) => {
+                        // Alert
+                        Alert.alert('Error', error.message);
+                  })
       }
 
 
       mapItemsStory() {
-            return this.state.storyObj.map(function (itemStory, i) {
+            return this.state.storyObj.map((itemStory, i) => {
                   return (
                         <Card key={i}
                               containerStyle={styles.wrapCardStory}
@@ -55,21 +70,57 @@ export default class StoryScreen extends React.Component {
 
                               image={source = {
                                     uri: itemStory.userCreate.profile_picture,
-                              }}>
+                              }}
+
+                              imageStyle={{
+                                    height: 250
+                              }}
+
+                        >
+
+
+                              {/*View card ล่าง*/}
+                              <View style={styles.cardListStory}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                          <Avatar
+                                                size={30}
+                                                rounded
+                                                source={{
+                                                      uri:
+                                                            itemStory.userCreate.profile_picture,
+                                                }}
+                                          />
+                                          {/*ชื่อสกุล*/}
+                                          <Text style={{ marginLeft: 10, fontSize: 17, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
+                                                {itemStory.userCreate.first_name} {itemStory.userCreate.last_name}
+                                          </Text>
+
+                                          {/*สเตตัส*/}
+                                          <Text style={{ marginLeft: 'auto', fontSize: 17, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
+                                                {itemStory.userCreate.stat} {'\n'}
+                                          </Text>
+
+
+                                    </View>
+                                    <Text style={{ alignSelf: 'flex-end', fontSize: 10, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
+                                          {itemStory.storyItem.created_at.substr(0, 16)}
+                                    </Text>
+                              </View>
+
 
                               <Text style={{
-                                    marginBottom: 10,
+
+                                    padding: 15,
                                     fontFamily: 'Kanit-Light',
                                     color: '#CD5C5C'
                               }}>
 
-                                    {'   '}บอกเล่าเรื่องราวเกี่ยวกับประสบการณ์ด้วยแอพพลิเคชั่น LetVIsion ของคุณ
+                                    {'   '}{itemStory.storyItem.detail.substr(0, 80)}{'...'}
                               </Text>
-
                               <Button
                                     icon={
                                           <Icon
-                                                name='plus'
+                                                name='eye'
                                                 type='font-awesome'
                                                 color='white'
                                                 size={15}
@@ -83,7 +134,7 @@ export default class StoryScreen extends React.Component {
                                           marginBottom: 0,
                                           backgroundColor: '#CD5C5C',
                                     }}
-                                    title='สร้างเรื่องราว'
+                                    title='อ่านต่อ...'
                                     titleStyle={{
                                           fontFamily: 'Kanit-Light',
                                           marginLeft: 10
@@ -91,7 +142,6 @@ export default class StoryScreen extends React.Component {
                                     onPress={() => this.props.setOverlayCreateStory(true)}
 
                               />
-
 
 
                         </Card>
@@ -103,24 +153,51 @@ export default class StoryScreen extends React.Component {
 
       render() {
             return (
-                  <ScrollView
-                        refreshControl={
-                              <RefreshControl
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={this.componentDidMount}
-                              />
-                        }
-
-                  >
-
+                  <View style={{ flex: 1 }}>
                         <Head title='Story' />
 
+                        <ScrollView
+                              style={styles.wrapVol}
+                              refreshControl={
+                                    <RefreshControl
+                                          refreshing={this.state.refreshing}
+                                          onRefresh={this.componentDidMount}
+                                    />
+                              }
 
-                        {this.mapItemsStory()}
+                        >
 
 
-                  </ScrollView>
+                              {this.mapItemsStory()}
+
+
+
+                        </ScrollView>
+
+                        <LoadingRequest />
+
+                  </View>
             );
       }
 }
+
+const mapStatetoProps = (state) => {
+      return {
+            user: state.user,
+      }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+      return {
+            setLoading: (status) => {
+                  dispatch({
+                        type: "startLoading",
+                        status: status
+                  })
+            }
+      }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(StoryScreen);
 

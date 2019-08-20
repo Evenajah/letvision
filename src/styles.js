@@ -421,11 +421,11 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
-        fontSize:17,
-        color:'#fff',
-        marginTop:10,
-        borderRadius:15,
-        marginHorizontal:15
+        fontSize: 17,
+        color: '#fff',
+        marginTop: 10,
+        borderRadius: 15,
+        marginHorizontal: 15
     },
 
     headerCreateStoryText: {
@@ -435,30 +435,38 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderBottomWidth: 0.5,
         paddingBottom: 10,
-        justifyContent:'center',
+        justifyContent: 'center',
         borderBottomColor: '#fff',
-        marginTop:15,
-        marginBottom:15,
-      
+        marginTop: 15,
+        marginBottom: 15,
+
     },
 
-    topicForm:{
+    topicForm: {
         backgroundColor: '#E9967A',
         padding: 10,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
-        fontSize:17,
-        color:'#fff',
-        borderRadius:15,
-        marginHorizontal:15,
-        marginBottom:10
+        fontSize: 17,
+        color: '#fff',
+        borderRadius: 15,
+        marginHorizontal: 15,
+        marginBottom: 10
     },
 
-    btnFormAddStory:{
-        position: 'absolute', 
-        bottom: 0, 
+    btnFormAddStory: {
+        position: 'absolute',
+        bottom: 0,
         right: 0,
-        flexDirection:'row'
+        flexDirection: 'row'
+    },
+
+    // listStory
+
+    cardListStory: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#FA8072'
     }
 
 
