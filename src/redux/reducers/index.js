@@ -6,12 +6,16 @@ import isVisible from './isVisible';
 import loading from './loading';
 import overlayChangeEmail from './overlayChangeEmail';
 import overlayCreateStory from './overlayCreateStory';
+import overlayReadStory from './overlayReadStory';
+import detailStory from './detailStory';
 
 
 export default combineReducers({
     user: user,
     isVisible: isVisible,
-    loading:loading,
-    overlayChangeEmail:overlayChangeEmail,
-    overlayCreateStory:overlayCreateStory
+    loading: loading,
+    overlayChangeEmail: overlayChangeEmail,
+    overlayCreateStory: overlayCreateStory,
+    overlayReadStory: overlayReadStory,
+    detailStory: detailStory
 })

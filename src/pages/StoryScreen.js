@@ -16,6 +16,7 @@ import LoadingRequest from '../component/Overlay/LoadingRequest';
 
 // redux
 import { connect } from 'react-redux';
+import OverlayReadStory from '../component/Overlay/OverlayReadStory';
 
 
 class StoryScreen extends React.Component {
@@ -28,12 +29,15 @@ class StoryScreen extends React.Component {
                   storyObj: []
             };
 
+
       }
 
       componentDidMount = () => {
 
             // load
             this.props.setLoading(true);
+
+
 
             // ยิง API
             const service = `https://us-central1-letview-db16d.cloudfunctions.net/story`;
@@ -43,7 +47,7 @@ class StoryScreen extends React.Component {
                         this.setState({
                               storyObj: response.data
                         })
-
+                        
                         // load success
                         this.props.setLoading(false);
 
@@ -139,16 +143,22 @@ class StoryScreen extends React.Component {
                                           fontFamily: 'Kanit-Light',
                                           marginLeft: 10
                                     }}
-                                    onPress={() => this.props.setOverlayCreateStory(true)}
+                                    onPress={() => this.patchDetailStory(itemStory)}
 
                               />
-
+                              
 
                         </Card>
 
                   );
 
             });
+      }
+
+      patchDetailStory(itemStory) {
+            this.props.setDetailStory(itemStory);
+            this.props.setOverlayReadStory(true);
+           
       }
 
       render() {
@@ -176,6 +186,10 @@ class StoryScreen extends React.Component {
 
                         <LoadingRequest />
 
+                      
+                          <OverlayReadStory/>
+                        
+
                   </View>
             );
       }
@@ -184,6 +198,7 @@ class StoryScreen extends React.Component {
 const mapStatetoProps = (state) => {
       return {
             user: state.user,
+            overlayReadStory: state.overlayReadStory,
       }
 }
 
@@ -194,6 +209,20 @@ const mapDispatchToProps = (dispatch) => {
                   dispatch({
                         type: "startLoading",
                         status: status
+                  })
+            },
+
+            setOverlayReadStory: (status) => {
+                  dispatch({
+                        type: "setOverlayReadStory",
+                        status: status
+                  })
+            },
+
+            setDetailStory: (detail) => {
+                  dispatch({
+                        type: "setDetailStory",
+                        detail: detail
                   })
             }
       }
