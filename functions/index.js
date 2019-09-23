@@ -85,7 +85,7 @@ user.put('/', (req, res) => {
 
 /**************************************************End User API******************************************************* */
 
-// USer REST APIs
+// Story REST APIs
 story.use(cors({ origin: true }));
 
 // CRUD
@@ -113,12 +113,12 @@ story.get('/', (req, res) => {
 
       var userStory = firebase.database().ref('/users/');
       var story = firebase.database().ref('/stories/');
-      
+
 
       story.once('value', (storyData) => {
 
             var objStory = [];
-            
+
             storyData.forEach((items => {
 
                   // ดึง key มาทำ object
@@ -138,12 +138,38 @@ story.get('/', (req, res) => {
 
             res.status(200).send(objStory);
       }
-      
+
       )
 
 
 
 });
+
+story.get('/:id', (req, res) => {
+
+      var story = firebase.database().ref('/stories/');
+      var objStory = [];
+
+      // ยิงหา user params id
+      story.orderByChild(`userId`).equalTo(`${req.params.id}`).on(`value`, (storyData) => {
+
+            storyData.forEach((items => {
+
+                  var fk = storyData.child(items.key).val();
+
+                  // เพิ่ม object user ที่ผูกกับ story แล้ว
+                  objStory.push({
+                        storyId: items.key,
+                        storyItem: fk,
+                  })
+            }))
+            res.status(200).send(objStory);
+
+      })
+
+
+});
+
 
 
 

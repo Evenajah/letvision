@@ -75,7 +75,7 @@ class OverlayReadStory extends React.Component {
 
 
                                                 </View>
-                                                
+
                                                 <Text style={{ alignSelf: 'flex-end', fontSize: 15, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
                                                       {this.props.detailStory.storyItem.created_at}
                                                 </Text>
@@ -89,7 +89,7 @@ class OverlayReadStory extends React.Component {
                                                 color: '#CD5C5C'
                                           }}>
 
-                                                {'   '}{this.props.detailStory.storyItem.detail}{'...'}
+                                                {'   '}{this.props.detailStory.storyItem.detail}
                                           </Text>
 
                                           <Text>{"\n"}{"\n"}</Text>

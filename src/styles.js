@@ -286,6 +286,19 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
 
+    wrapCardMyStory: {
+        width: Dimensions.get('window').width - 45,
+        alignSelf: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+    },
+
     //settingScreen
     wrapSettingItem: {
         flexDirection: 'row',

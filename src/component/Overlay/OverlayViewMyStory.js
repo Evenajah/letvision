@@ -4,22 +4,24 @@ import { Icon, Card, Button, Avatar } from 'react-native-elements';
 
 
 //stylesheet
-import styles from '../styles';
+import styles from '../../styles';
 
 //component
-import Head from '../component/Head';
+import Head from '../Head';
 
 
 // service
 import axios from 'axios';
-import LoadingRequest from '../component/Overlay/LoadingRequest';
+import LoadingRequest from './LoadingRequest';
 
 // redux
 import { connect } from 'react-redux';
-import OverlayReadStory from '../component/Overlay/OverlayReadStory';
+import OverlayReadStory from './OverlayReadStory';
 
 
-class StoryScreen extends React.Component {
+
+
+class OverlayViewMyStory extends React.Component {
 
       constructor () {
             super();
@@ -33,14 +35,11 @@ class StoryScreen extends React.Component {
       }
 
       componentDidMount = () => {
-
-            // load
+            // setLoading
             this.props.setLoading(true);
 
-
-
-            // ยิง API
-            const service = `https://us-central1-letview-db16d.cloudfunctions.net/story`;
+            // Api Request
+            const service = `https://us-central1-letview-db16d.cloudfunctions.net/story/${this.props.user.uid}`;
             axios.get(service)
                   .then((response) => {
 
@@ -50,12 +49,12 @@ class StoryScreen extends React.Component {
 
                         // load success
                         this.props.setLoading(false);
-
                   })
                   .catch((error) => {
                         // Alert
                         Alert.alert('Error', error.message);
                   })
+                  
       }
 
 
@@ -63,7 +62,7 @@ class StoryScreen extends React.Component {
             return this.state.storyObj.map((itemStory, i) => {
                   return (
                         <Card key={i}
-                              containerStyle={styles.wrapCardStory}
+                              containerStyle={styles.wrapCardMyStory}
 
                               title={itemStory.storyItem.topic}
                               titleStyle={{
@@ -72,45 +71,17 @@ class StoryScreen extends React.Component {
                                     color: '#CD5C5C'
                               }}
 
+
                               image={source = {
-                                    uri: itemStory.userCreate.profile_picture,
+                                    uri: itemStory.storyItem.photoUrl,
                               }}
 
+
                               imageStyle={{
-                                    height: 250
+                                    height: 200
                               }}
 
                         >
-
-
-                              {/*View card ล่าง*/}
-                              <View style={styles.cardListStory}>
-                                    <View style={{ flexDirection: 'row' }}>
-                                          <Avatar
-                                                size={30}
-                                                rounded
-                                                source={{
-                                                      uri:
-                                                            itemStory.userCreate.profile_picture,
-                                                }}
-                                          />
-                                          {/*ชื่อสกุล*/}
-                                          <Text style={{ marginLeft: 10, fontSize: 17, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
-                                                {itemStory.userCreate.first_name} {itemStory.userCreate.last_name}
-                                          </Text>
-
-                                          {/*สเตตัส*/}
-                                          <Text style={{ marginLeft: 'auto', fontSize: 17, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
-                                                {itemStory.userCreate.stat} {'\n'}
-                                          </Text>
-
-
-                                    </View>
-                                    <Text style={{ alignSelf: 'flex-end', fontSize: 10, fontFamily: 'Kanit-Light', color: '#CD5C5C' }}>
-                                          {itemStory.storyItem.created_at.substr(0, 16)}
-                                    </Text>
-                              </View>
-
 
                               <Text style={{
 
@@ -121,32 +92,48 @@ class StoryScreen extends React.Component {
 
                                     {'   '}{itemStory.storyItem.detail.substr(0, 80)}{'...'}
                               </Text>
-                              <Button
-                                    icon={
-                                          <Icon
-                                                name='eye'
-                                                type='font-awesome'
-                                                color='white'
-                                                size={15}
 
-                                          />
-                                    }
-                                    buttonStyle={{
-                                          borderRadius: 0,
-                                          marginLeft: 0,
-                                          marginRight: 0,
-                                          marginBottom: 0,
-                                          backgroundColor: '#CD5C5C',
-                                    }}
-                                    title='อ่านต่อ...'
-                                    titleStyle={{
-                                          fontFamily: 'Kanit-Light',
-                                          marginLeft: 10
-                                    }}
-                                    onPress={() => this.patchDetailStory(itemStory)}
 
-                              />
 
+                              <View style={{ flexDirection: 'row' }}>
+
+                                    {/*View*/}
+                                    <Icon
+                                          raised
+                                          name='eye'
+                                          type='font-awesome'
+                                          size={18}
+                                          color='#3366CC'
+                                          reverse={true}
+                                          onPress={() => this.viewStory()}
+                                    />
+
+                                    {/*Edit*/}
+                                    <Icon
+                                          raised
+                                          name='edit'
+                                          type='font-awesome'
+                                          color='#33CC66'
+                                          size={18}
+                                          reverse={true}
+                                          onPress={() => console.log('hello')}
+
+                                    />
+
+                                    {/*Delete*/}
+                                    <Icon
+                                          raised
+                                          name='trash'
+                                          type='font-awesome'
+                                          color='#FF4500'
+                                          reverse={true}
+                                          size={18}
+                                          onPress={() => console.log('hello')}
+
+                                    />
+
+
+                              </View>
 
                         </Card>
 
@@ -164,7 +151,8 @@ class StoryScreen extends React.Component {
       render() {
             return (
                   <View style={{ flex: 1 }}>
-                        <Head title='Story' />
+
+                        <Head title='Your Story' />
 
                         <ScrollView
                               style={styles.wrapVol}
@@ -177,16 +165,15 @@ class StoryScreen extends React.Component {
 
                         >
 
-
                               {this.mapItemsStory()}
-
-
 
                         </ScrollView>
 
                         <LoadingRequest />
 
-                        <OverlayReadStory />
+                        <OverlayReadStory/>
+
+
 
 
                   </View>
@@ -227,5 +214,5 @@ const mapDispatchToProps = (dispatch) => {
       }
 }
 
-export default connect(mapStatetoProps, mapDispatchToProps)(StoryScreen);
+export default connect(mapStatetoProps, mapDispatchToProps)(OverlayViewMyStory);
 

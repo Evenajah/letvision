@@ -12,6 +12,7 @@ import OverlayHaveProvidor from './Overlay/OverlayHaveProvidor';
 
 // redux
 import { connect } from 'react-redux';
+import OverlayViewMyStory from './Overlay/OverlayViewMyStory';
 
 
 
@@ -64,7 +65,7 @@ class SettingUser extends React.Component {
                                     name='comments'
                                     type='font-awesome'
                                     color='#CD5C5C'
-                                    onPress={() => console.log('hello')} />
+                                    onPress={() => this.props.setOverlayViewMyStory(true)} />
                               <Text style={styles.textIconSetting}>เรื่องราวของฉัน</Text>
                         </View>
 
@@ -83,10 +84,23 @@ class SettingUser extends React.Component {
                         >
 
                               <View>
-                                    {(this.props.user.account_type === 'email') ? <OverlayChangeEmail /> : <OverlayHaveProvidor/>}
+                                    {(this.props.user.account_type === 'email') ? <OverlayChangeEmail /> : <OverlayHaveProvidor />}
                               </View>
 
                         </Overlay>
+
+
+
+                        <Overlay
+                              isVisible={this.props.overlayViewMyStory}
+                              fullScreen={true}
+                              onBackdropPress={() => this.props.setOverlayViewMyStory(false)}
+                        >
+
+                              <OverlayViewMyStory/>
+
+                        </Overlay>
+
 
                   </View>
 
@@ -97,7 +111,8 @@ class SettingUser extends React.Component {
 const mapStatetoProps = (state) => {
       return {
             user: state.user,
-            overlayChangeEmail: state.overlayChangeEmail
+            overlayChangeEmail: state.overlayChangeEmail,
+            overlayViewMyStory: state.overlayViewMyStory
       }
 }
 
@@ -110,7 +125,15 @@ const mapDispatchToProps = (dispatch) => {
                         status: status
                   })
 
+            },
+            setOverlayViewMyStory: (status) => {
+                  dispatch({
+                        type: "setOverlayViewMyStory",
+                        status: status
+                  })
+
             }
+
       }
 }
 

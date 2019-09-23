@@ -8,6 +8,7 @@ import overlayChangeEmail from './overlayChangeEmail';
 import overlayCreateStory from './overlayCreateStory';
 import overlayReadStory from './overlayReadStory';
 import detailStory from './detailStory';
+import overlayViewMyStory from './overlayViewMyStory';
 
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
     overlayChangeEmail: overlayChangeEmail,
     overlayCreateStory: overlayCreateStory,
     overlayReadStory: overlayReadStory,
+    overlayViewMyStory: overlayViewMyStory,
     detailStory: detailStory
 })
