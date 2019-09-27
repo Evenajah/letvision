@@ -9,6 +9,10 @@ import axios from 'axios';
 //timeStamp
 import moment from 'moment';
 
+
+import * as Facebook from 'expo-facebook';
+
+
 export default class FacebookLogin extends React.Component {
 
     constructor (props) {
@@ -24,7 +28,7 @@ export default class FacebookLogin extends React.Component {
             const {
                 type,
                 token,
-            } = await Expo.Facebook.logInWithReadPermissionsAsync('2561765517383997', {
+            } = await Facebook.logInWithReadPermissionsAsync('2561765517383997', {
                 permissions: ['public_profile', 'email'],
             });
 

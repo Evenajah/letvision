@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 

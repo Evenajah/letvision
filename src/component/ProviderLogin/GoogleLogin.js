@@ -12,6 +12,8 @@ import styles from '../../styles';
 //service
 import axios from 'axios';
 
+import * as GoogleSignIn from 'expo-google-sign-in';
+
 export default class GoogleLogin extends React.Component {
 
     constructor (props) {
@@ -21,7 +23,7 @@ export default class GoogleLogin extends React.Component {
     //login google from Btn
     loginWithGoogle = async () => {
         try {
-            const result = await Expo.Google.logInAsync({
+            const result = await GoogleSignIn.logInAsync({
                 behavior: 'web',
                 androidClientId: '575302837103-ea8rgcbbktqvm0c4omp4t4jd833k250k.apps.googleusercontent.com',
                 //iosClientId: '', //enter ios client id

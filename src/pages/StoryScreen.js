@@ -19,9 +19,11 @@ import { connect } from 'react-redux';
 import OverlayReadStory from '../component/Overlay/OverlayReadStory';
 
 
+import * as Speech from 'expo-speech';
+
 class StoryScreen extends React.Component {
 
-      constructor () {
+      constructor() {
             super();
 
             this.state = {
@@ -30,6 +32,13 @@ class StoryScreen extends React.Component {
             };
 
 
+      }
+
+      speak() {
+            var thingToSay = 'ดีครับ';
+            Speech.speak(thingToSay,{
+                  language:'th'
+            });
       }
 
       componentDidMount = () => {
@@ -187,7 +196,7 @@ class StoryScreen extends React.Component {
                         <LoadingRequest />
 
                         <OverlayReadStory />
-
+                        <Button title="Press to hear some words" onPress={this.speak} />
 
                   </View>
             );
