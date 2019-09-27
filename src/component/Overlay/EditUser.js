@@ -131,7 +131,7 @@ class EditUser extends React.Component {
                         marginLeft: 0,
                         marginRight: 0,
                         marginBottom: 0,
-                        backgroundColor: '#FA8072',
+                        backgroundColor: '#708090',
                         width: 280,
                         marginVertical: 20
                     }}

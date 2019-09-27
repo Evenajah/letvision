@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Alert  } from 'react-native';
 import * as firebase from 'firebase';
-import { SocialIcon } from 'react-native-elements';
+import { SocialIcon,Button } from 'react-native-elements';
 
 //service
 import axios from 'axios';

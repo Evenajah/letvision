@@ -50,8 +50,8 @@ export default class Chart extends React.Component {
 
             this.setState({
                 data: [
-                    { name: 'อาสาสมัคร', population: this.state.countVolunteer, color: '#CD5C5C', legendFontColor: '#CD5C5C', legendFontSize: 12 },
-                    { name: 'ผู้พิการทางสายตา', population: this.state.countBlind, color: '#FA8072', legendFontColor: '#CD5C5C', legendFontSize: 12 },
+                    { name: 'อาสาสมัคร', population: this.state.countVolunteer, color: '#2F4F4F', legendFontColor: '#CD5C5C', legendFontSize: 12 },
+                    { name: 'ผู้พิการทางสายตา', population: this.state.countBlind, color: '#708090', legendFontColor: '#CD5C5C', legendFontSize: 12 },
                 ],
                 isLoading: true
             })

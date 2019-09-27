@@ -17,9 +17,9 @@ export default class Head extends React.Component {
 
                 <Header
 
-                    containerStyle={{ borderBottomColor: '#FA8072', height: 65 }}
+                    containerStyle={{ borderBottomColor: '#2F4F4F', height: 65 }}
                     centerComponent={{ text: this.props.title, style: { color: '#fff', fontFamily: 'Estilo', fontSize: 25 } }}
-                    backgroundColor='#E9967A'
+                    backgroundColor='#2F4F4F'
                     
                 />
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 
@@ -12,9 +12,11 @@ import Footer from '../component/Footer';
 //stylesheet
 import styles from '../styles';
 
+
+
 export default class Signup extends React.Component {
 
- 
+
     //Navigate
     loginPage = () => {
 
@@ -37,31 +39,39 @@ export default class Signup extends React.Component {
 
     render() {
         return (
-            <View style={styles.containerSplash}>
-                <Logo />
-                <FormSignup type="สมัครสมาชิก" />
-                {/*link ปุ่มสมัคร*/}
 
-                <View style={styles.signupContext}>
-                    <TouchableOpacity style={styles.flexIcon} onPress={this.loginPage}>
-                        <Icon
-                            name='sign-in'
-                            type='font-awesome'
-                            color='#ffffff'
-                            size={15}
-                            paddingHorizontal={7}
-                        />
-                        <Text style={styles.signupText}>
-                            เข้าสู่ระบบ
-                                </Text>
+            <ImageBackground source={require('../images/blind2.jpg')} style={{ width: '100%', height: '100%' }}>
+                <View style={styles.containerSplash}>
 
-                    </TouchableOpacity>
+
+
+                    <Logo />
+                    <FormSignup type="สมัครสมาชิก" />
+                    {/*link ปุ่มสมัคร*/}
+
+                    <View style={styles.signupContext}>
+                        <TouchableOpacity style={styles.flexIcon} onPress={this.loginPage}>
+                            <Icon
+                                name='sign-in'
+                                type='font-awesome'
+                                color='#ffffff'
+                                size={15}
+                                paddingHorizontal={7}
+                            />
+                            <Text style={styles.signupText}>
+                                เข้าสู่ระบบ
+                        </Text>
+
+                        </TouchableOpacity>
+
+                    </View>
+
+                    <Footer />
+
+
 
                 </View>
-
-                <Footer />
-
-            </View>
+            </ImageBackground >
         );
     }
 }

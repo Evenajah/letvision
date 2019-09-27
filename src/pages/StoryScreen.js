@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView, RefreshControl, View, Alert } from 'react-native';
+import { Text, ScrollView, RefreshControl, View, Alert, ImageBackground } from 'react-native';
 import { Icon, Card, Button, Avatar } from 'react-native-elements';
 
 
@@ -36,8 +36,8 @@ class StoryScreen extends React.Component {
 
       speak() {
             var thingToSay = 'ดีครับ';
-            Speech.speak(thingToSay,{
-                  language:'th'
+            Speech.speak(thingToSay, {
+                  language: 'th'
             });
       }
 
@@ -172,33 +172,35 @@ class StoryScreen extends React.Component {
 
       render() {
             return (
-                  <View style={{ flex: 1 }}>
-                        <Head title='Story' />
+                  <ImageBackground source={require('../images/blind2.jpg')} style={{ width: '100%', height: '100%' }}>
+                        <View style={{ flex: 1 }}>
+                              <Head title='Story' />
 
-                        <ScrollView
-                              style={styles.wrapVol}
-                              refreshControl={
-                                    <RefreshControl
-                                          refreshing={this.state.refreshing}
-                                          onRefresh={this.componentDidMount}
-                                    />
-                              }
+                              <ScrollView
+                                    style={styles.wrapVol}
+                                    refreshControl={
+                                          <RefreshControl
+                                                refreshing={this.state.refreshing}
+                                                onRefresh={this.componentDidMount}
+                                          />
+                                    }
 
-                        >
-
-
-                              {this.mapItemsStory()}
+                              >
 
 
+                                    {this.mapItemsStory()}
 
-                        </ScrollView>
 
-                        <LoadingRequest />
 
-                        <OverlayReadStory />
-                        <Button title="Press to hear some words" onPress={this.speak} />
+                              </ScrollView>
 
-                  </View>
+                              <LoadingRequest />
+
+                              <OverlayReadStory />
+                              <Button title="Press to hear some words" onPress={this.speak} />
+
+                        </View>
+                  </ImageBackground>
             );
       }
 }

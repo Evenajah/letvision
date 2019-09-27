@@ -93,7 +93,7 @@ class ShowUserBox extends React.Component {
                 {/*Overlay*/}
                 <Overlay isVisible={this.props.isVisible}
                     onBackdropPress={() => this.props.setVisible(false)}
-                    overlayBackgroundColor='#CD5C5C'
+                    overlayBackgroundColor='#2F4F4F'
                     width="auto"
                     height="auto"
                 >

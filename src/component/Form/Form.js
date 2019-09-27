@@ -8,7 +8,7 @@ import styles from '../../styles';
 
 //component
 import FacebookLogin from '../ProviderLogin/FacebookLogin';
-import Googlelogin from '../ProviderLogin/GoogleLogin';
+
 
 export default class Form extends React.Component {
 
@@ -49,7 +49,7 @@ export default class Form extends React.Component {
 
                 {/*InputForm*/}
 
-                <View>
+                <View style={{ backgroundColor: '#2F4F4F', padding: 20 ,opacity:0.9}}>
 
                     <View style={styles.viewInput}>
                         <Icon
@@ -61,7 +61,6 @@ export default class Form extends React.Component {
 
                         />
                         <TextInput style={styles.inputBox}
-                            underlineColorAndroid='#ffffff'
                             placeholder='Email'
                             placeholderTextColor='#ffffff'
                             onChangeText={email => this.setState({ email })}
@@ -81,7 +80,6 @@ export default class Form extends React.Component {
                         />
                         <TextInput style={styles.inputBox}
                             placeholder='Password'
-                            underlineColorAndroid='#ffffff'
                             placeholderTextColor='#ffffff'
                             secureTextEntry={true}
                             onChangeText={password => this.setState({ password })}
@@ -118,7 +116,6 @@ export default class Form extends React.Component {
 
                         <FacebookLogin />
 
-                        <Googlelogin />
 
 
                     </View>

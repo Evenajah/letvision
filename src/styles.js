@@ -15,17 +15,20 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#CD5C5C',
+        // backgroundColor: '#D2B48C',
     },
 
     inputBox: {
         fontFamily: 'Kanit-Light',
-        width: 250,
+        width: 220,
         height: 40,
         color: '#ffffff',
         paddingHorizontal: 5,
         marginVertical: 10,
-        fontSize: 15
+        fontSize: 15,
+        borderBottomColor:'#fff',
+        borderBottomWidth: 1
+
     },
 
     buttonText: {
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
     button: {
         flexDirection: 'row',
         width: 270,
-        backgroundColor: '#F08080',
+        backgroundColor: '#778899',
         marginVertical: 15,
         alignItems: 'center',
         justifyContent: 'center',
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     buttonSign: {
         flexDirection: 'row',
         width: 270,
-        backgroundColor: '#F08080',
+        backgroundColor: '#778899',
         marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     // VolunteerScreen
     wrapVol: {
         flex: 1,
-        backgroundColor: '#FA8072',
+        // backgroundColor: '#FA8072',
 
     },
 

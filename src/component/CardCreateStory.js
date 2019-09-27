@@ -25,14 +25,14 @@ class CardCreateStory extends React.Component {
             <Card
                 containerStyle={styles.wrapCardStory}
 
-                title='เรื่องราว'
+                title='เพิ่มหนังสือ'
                 titleStyle={{
                     fontFamily: 'Kanit-Light',
                     fontWeight: 'normal',
                     color: '#CD5C5C'
                 }}
 
-                image={require('../images/story.jpg')}>
+                image={{uri:'https://images.unsplash.com/photo-1542012204088-49fc1ae18754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}}>
 
                 <Text style={{
                     marginBottom: 10,
@@ -40,7 +40,7 @@ class CardCreateStory extends React.Component {
                     color: '#CD5C5C'
                 }}>
 
-                    {'   '}บอกเล่าเรื่องราวเกี่ยวกับประสบการณ์ด้วยแอพพลิเคชั่น LetVIsion ของคุณ
+                    {'   '}สร้างหนังสือเพื่อผู้พิการทางสายตา
                 </Text>
                 <Button
                     icon={
@@ -57,9 +57,9 @@ class CardCreateStory extends React.Component {
                         marginLeft: 0,
                         marginRight: 0,
                         marginBottom: 0,
-                        backgroundColor: '#CD5C5C',
+                        backgroundColor: '#2F4F4F',
                     }}
-                    title='สร้างเรื่องราว'
+                    title='สร้างหนังสือ'
                     titleStyle={{
                         fontFamily: 'Kanit-Light',
                         marginLeft: 10

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, ImageBackground } from 'react-native';
 
 
 //stylesheet
@@ -22,43 +22,44 @@ export default class VolunteerScreen extends React.Component {
 
 
         return (
-            <View style={{ flex: 1 }}>
+            <ImageBackground source={require('../images/blind2.jpg')} style={{ width: '100%', height: '100%' }}>
+                <View style={{ flex: 1 }}>
 
-                {/*Header*/}
-                <Head title='Letvision' />
+                    {/*Header*/}
+                    <Head title='Letvision' />
 
 
-                <ScrollView style={styles.wrapVol}>
+                    <ScrollView style={styles.wrapVol}>
 
-                    <View style={styles.wrapChart}>
+                        <View style={styles.wrapChart}>
 
-                        <View style={styles.wrapTextVolSc}>
+                            <View style={styles.wrapTextVolSc}>
 
-                            <Text style={styles.textVolSc}>อัตราส่วนผู้ใช้งาน</Text>
+                                <Text style={styles.textVolSc}>อัตราส่วนผู้ใช้งาน</Text>
+
+                            </View>
+
+                            {/*Chart*/}
+                            <Chart />
+
 
                         </View>
 
-                        {/*Chart*/}
-                        <Chart />
+                        {/*userBox*/}
+                        <ShowUserBox />
 
 
-                    </View>
-
-                    {/*userBox*/}
-                    <ShowUserBox />
+                        {/*card*/}
+                        <CardCreateStory />
 
 
-                    {/*card*/}
-                    <CardCreateStory />
+                        {/*How to use*/}
+                        <HowToUse />
 
+                    </ScrollView>
 
-                    {/*How to use*/}
-                    <HowToUse />
-
-                </ScrollView>
-
-            </View>
-
+                </View>
+            </ImageBackground>
         );
     }
 }

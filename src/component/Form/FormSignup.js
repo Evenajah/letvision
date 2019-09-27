@@ -97,7 +97,7 @@ export default class FormSignin extends React.Component {
 
                 {/*InputForm*/}
 
-
+                <View style={{ backgroundColor: '#2F4F4F', padding: 20 ,opacity:0.8}}>
                 <View style={styles.viewInput}>
                     <Icon
                         name='envelope'
@@ -175,6 +175,7 @@ export default class FormSignin extends React.Component {
                     </Text>
 
                 </TouchableOpacity>
+                </View>
 
             </View>
 

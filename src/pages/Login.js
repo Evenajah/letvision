@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //import component
@@ -34,36 +34,38 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.containerSplash}>
-        <Logo />
-        <Form type="เข้าสู่ระบบ" />
+      <ImageBackground source={require('../images/blind2.jpg')} style={{ width: '100%', height: '100%' }}>
+        <View style={styles.containerSplash}>
+          <Logo />
+          <Form type="เข้าสู่ระบบ" />
 
-        {/*link ปุ่มสมัคร*/}
+          {/*link ปุ่มสมัคร*/}
 
-        <View style={styles.signupContext}>
+          <View style={styles.signupContext}>
 
-          <TouchableOpacity style={styles.flexIcon} onPress={this.signupPage}>
+            <TouchableOpacity style={styles.flexIcon} onPress={this.signupPage}>
 
-            <Icon
-              name='user-plus'
-              type='font-awesome'
-              color='#ffffff'
-              size={15}
-              paddingHorizontal={7}
-            />
+              <Icon
+                name='user-plus'
+                type='font-awesome'
+                color='#ffffff'
+                size={15}
+                paddingHorizontal={7}
+              />
 
-            <Text style={styles.signupText}>
-              สมัครสมาชิกที่นี่...
-                </Text>
+              <Text style={styles.signupText}>
+                สมัครสมาชิกที่นี่...
+              </Text>
 
-          </TouchableOpacity>
+            </TouchableOpacity>
 
+
+          </View>
+
+          <Footer />
 
         </View>
-
-        <Footer />
-
-      </View>
+      </ImageBackground>
     );
   }
 }
