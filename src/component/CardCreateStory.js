@@ -7,7 +7,7 @@ import { Icon, Button, Card } from 'react-native-elements'
 
 //stylesheet
 import styles from '../styles';
-import OverlayCreateStory from './Overlay/OverlayCreateStory';
+import OverlayCreateStory from './Overlay/OverlayCreateBook';
 
 
 // redux
@@ -70,6 +70,8 @@ class CardCreateStory extends React.Component {
 
 
                 <OverlayCreateStory />
+
+                
 
             </Card>
 

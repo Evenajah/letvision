@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, View, TextInput, Dimensions, ScrollView, Alert } from 'react-native';
+import { Text, View, TextInput, ScrollView, Alert } from 'react-native';
 
 
 // component
-import { Icon, Button, Card, Image, Avatar } from 'react-native-elements'
+import { Icon, Button } from 'react-native-elements'
 import LoadingRequest from '../Overlay/LoadingRequest';
-
+import OverlayScanBarcode from '../Overlay/OverlayScanBarcode';
 
 // redux
 import { connect } from 'react-redux';
@@ -22,14 +22,19 @@ import axios from 'axios';
 import moment from 'moment';
 
 
+// permission+barcode
+import * as Permissions from 'expo-permissions';
+
+
+
 
 class FormStory extends React.Component {
 
-      constructor (props) {
+      constructor(props) {
 
             super(props);
             this.state = {
-                  topic: '',
+                  isbnInput: '',
                   detail: ''
             }
 
@@ -75,7 +80,7 @@ class FormStory extends React.Component {
                                           detail: ''
                                     })
 
-                                    Alert.alert("Success!", "Succesfully Add Your Story.");
+                                    Alert.alert("Success!", "Succesfully Add Your Book.");
                               }
                         })
                         .catch((err) => {
@@ -86,52 +91,121 @@ class FormStory extends React.Component {
 
       }
 
+      // async componentDidMount() {
+      //       this.getPermissionsAsync();
+      //     }
+
+
+      getPermissionsCamera = async () => {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+            if (status === 'granted') {
+                  this.props.setOverlayScan(true);
+            } else {
+                  Alert.alert('Hey! You heve not enabled selected permissions');
+            }
+      };
+
+
+      getBookWithApi = () => {
+
+            if (this.state.isbnInput === '' || this.state.isbnInput.length < 13) {
+
+                  Alert.alert('Warning', 'isbn is between 10 - 13 characters')
+
+            } else {
+
+                  // ยิง api เข้า googlebook
+                  const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=ISBN:';
+                  axios.get(apiBook + this.state.isbnInput)
+                        .then((response) => {
+                              console.log(response.data);
+                        })
+                        .catch((error) => {
+                              Alert.alert('Error', error.message)
+                        })
+            }
+      }
+
+
+
       render() {
+
 
             return (
                   <View style={{ flex: 1 }}>
 
                         <ScrollView>
 
-                              <Image
-                                    source={{ uri: 'https://cdn.pixabay.com/photo/2017/12/01/22/16/people-2991882_1280.jpg' }}
-                                    style={{
-                                          width: Dimensions.get('window').width,
-                                          height: 300,
-                                          justifyContent: 'center',
-                                          alignSelf: 'center',
-                                         
-                                    }}
-                              />
+
                               <View style={styles.viewInput}>
+                                    <Icon
+
+                                          name='book'
+                                          type='font-awesome'
+                                          color='#ffffff'
+                                          size={35}
+                                          iconStyle={{ marginRight: 15 }}
+                                    />
 
                                     <Text style={styles.headerCreateStoryText}>
 
-                                          สร้างเรื่องราวของคุณ
+                                          สร้างหนังสือ
 
                                     </Text>
                               </View>
 
-                              <TextInput
-                                    placeholder='Topic'
-                                    placeholderTextColor='#fff'
-                                    value={this.state.topic}
-                                    onChangeText={topic => this.setState({ topic })}
-                                    style={styles.topicForm}
+                              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', }}>
+
+                                    <TextInput
+                                          placeholder='เลข ISBN'
+                                          keyboardType='numeric'
+                                          placeholderTextColor='#fff'
+                                          value={this.state.isbnInput}
+                                          onChangeText={isbnInput => this.setState({ isbnInput })}
+                                          style={styles.topicForm}
+                                    />
+
+                                    <Icon
+
+                                          name='search'
+                                          type='font-awesome'
+                                          color='#ffffff'
+                                          onPress={() => this.getBookWithApi()}
+                                    />
+                              </View>
+
+
+                              <Button
+                                    icon={
+                                          <Icon
+
+                                                name='barcode'
+                                                type='font-awesome'
+                                                color='#ffffff'
+
+                                          />
+                                    }
+                                    title="สแกน Barcode ISBN"
+                                    buttonStyle={{ width: 300, alignSelf: 'center', backgroundColor: '#708090' }}
+                                    titleStyle={{ marginLeft: 15, fontFamily: 'Kanit-Light' }}
+                                    onPress={() => this.getPermissionsCamera()}
 
                               />
 
-                              <TextInput
-                                    multiline={true}
-                                    numberOfLines={5}
-                                    value={this.state.detail}
-                                    placeholder='Say something....'
-                                    placeholderTextColor='#fff'
-                                    onChangeText={detail => this.setState({ detail })}
-                                    style={styles.textAreaForm}
-                              />
+                              <View style={{ backgroundColor: '#708090', marginTop: 30 }}>
+                                    <TextInput
+                                          multiline={true}
+                                          numberOfLines={5}
+                                          value={this.state.detail}
+                                          placeholder='Say something..'
+                                          placeholderTextColor='#fff'
+                                          onChangeText={detail => this.setState({ detail })}
+                                          style={styles.textAreaForm}
 
+                                    />
 
+                              </View>
 
 
                         </ScrollView>
@@ -166,6 +240,8 @@ class FormStory extends React.Component {
 
                         <LoadingRequest />
 
+                        <OverlayScanBarcode/>
+
                   </View>
 
 
@@ -178,6 +254,7 @@ const mapStatetoProps = (state) => {
       return {
             user: state.user,
             overlayCreateStory: state.overlayCreateStory,
+            overlayScan: state.overlayScan,
             loading: state.loading
       }
 }
@@ -195,6 +272,14 @@ const mapDispatchToProps = (dispatch) => {
             setLoading: (status) => {
                   dispatch({
                         type: "startLoading",
+                        status: status
+                  })
+
+            },
+
+            setOverlayScan: (status) => {
+                  dispatch({
+                        type: "setOverlayScan",
                         status: status
                   })
 

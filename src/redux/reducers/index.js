@@ -9,6 +9,7 @@ import overlayCreateStory from './overlayCreateStory';
 import overlayReadStory from './overlayReadStory';
 import detailStory from './detailStory';
 import overlayViewMyStory from './overlayViewMyStory';
+import overlayScan from './overlayScan';
 
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
     overlayCreateStory: overlayCreateStory,
     overlayReadStory: overlayReadStory,
     overlayViewMyStory: overlayViewMyStory,
-    detailStory: detailStory
+    detailStory: detailStory,
+    overlayScan:overlayScan
 })

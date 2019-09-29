@@ -459,15 +459,16 @@ const styles = StyleSheet.create({
     },
 
     topicForm: {
-        backgroundColor: '#E9967A',
-        padding: 10,
+        backgroundColor: '#696969',
+        padding: 7,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
         fontSize: 17,
         color: '#fff',
         borderRadius: 15,
         marginHorizontal: 15,
-        marginBottom: 10
+        marginBottom: 10,
+        width:200
     },
 
     btnFormAddStory: {

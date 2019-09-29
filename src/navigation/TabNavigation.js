@@ -65,7 +65,7 @@ const Navigation = createBottomTabNavigator({
         initialRouteName: 'Home',
         
         tabBarOptions: {
-            activeTintColor: '#CD5C5C',
+            activeTintColor: '#2F4F4F',
             inactiveTintColor:'#BEBEBE',
             // labelStyle: {
             //     fontSize: 12,
