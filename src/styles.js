@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
 
     //textareaform
     textAreaForm: {
-        backgroundColor: '#E9967A',
+        backgroundColor: '#696969',
         padding: 10,
         textAlignVertical: 'top',
         fontFamily: 'Kanit-Light',
@@ -441,7 +441,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginTop: 10,
         borderRadius: 15,
-        marginHorizontal: 15
+        marginHorizontal: 15,
+        width:300
     },
 
     headerCreateStoryText: {
@@ -458,7 +459,7 @@ const styles = StyleSheet.create({
 
     },
 
-    topicForm: {
+    isbnForm: {
         backgroundColor: '#696969',
         padding: 7,
         textAlignVertical: 'top',
@@ -469,6 +470,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginBottom: 10,
         width:200
+    },
+
+    itemsBookForm: {
+        backgroundColor: '#696969',
+        padding: 7,
+        textAlignVertical: 'top',
+        fontFamily: 'Kanit-Light',
+        fontSize: 17,
+        color: '#fff',
+        borderRadius: 15,
+        marginHorizontal: 15,
+        marginBottom: 10,
+        width:300
     },
 
     btnFormAddStory: {

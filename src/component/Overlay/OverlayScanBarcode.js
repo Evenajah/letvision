@@ -1,13 +1,7 @@
 import React from 'react';
-import { Text, ScrollView, RefreshControl, View, Alert } from 'react-native';
-import { Icon, Card, Button, Avatar, Overlay } from 'react-native-elements';
+import { View, Alert } from 'react-native';
+import { Overlay } from 'react-native-elements';
 
-
-//stylesheet
-import styles from '../../styles';
-
-//component
-import Head from '../Head';
 
 
 // service
@@ -17,9 +11,7 @@ import LoadingRequest from './LoadingRequest';
 // redux
 import { connect } from 'react-redux';
 
-// permission+barcode
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+// barcode
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 
@@ -28,14 +20,62 @@ class OverlayScanBarcode extends React.Component {
     constructor() {
         super();
 
+        this.state = {
+            scanned: false,
+        };
+
     }
 
 
 
     handleBarCodeScanned = ({ type, data }) => {
         this.setState({ scanned: true });
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+
+        this.props.setLoading(true);
+        // ยิง api เข้า googlebook
+        const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=isbn=';
+        axios.get(apiBook + data)
+            .then((response) => {
+
+                console.log(data);
+
+
+                const responseBookItem = response.data.items[0].volumeInfo;
+
+
+                const itemsPatchBook = {
+                    isbnCode: '',
+                    titleBookName: responseBookItem.title,
+                    authorName: responseBookItem.authors[0],
+                    publishName: responseBookItem.publisher,
+                    discription: responseBookItem.description,
+                    // เช็คว่ามีใน Api ที่ยิงไปมั้ย
+                    image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
+                }
+
+                // patch ข้อมูลหนังสือ
+                this.props.setBookItem(itemsPatchBook);
+
+                // ปิดการ loading
+                this.props.setLoading(false);
+
+                this.setOverlayScan(false);
+
+                this.setState({
+                    scanned: false
+                })
+            })
+            .catch((error) => {
+                Alert.alert('Error', error.message);
+
+                // ปิดการ loading
+                this.props.setLoading(false);
+            })
+
+
     };
+
+
 
 
     render() {
@@ -43,16 +83,19 @@ class OverlayScanBarcode extends React.Component {
             <Overlay
                 isVisible={this.props.overlayScan}
                 onBackdropPress={() => this.props.setOverlayScan(false)}
-                overlayStyle={{ padding: 0,borderRadius:15 ,borderWidth:0}}
+                overlayStyle={{ padding: 0, borderRadius: 15, borderWidth: 0 }}
                 width='auto'
                 height='auto'
 
             >
+                <View>
+                    <BarCodeScanner
+                        onBarCodeScanned={this.state.scanned ? undefined : this.handleBarCodeScanned}
+                        style={{ width: 250, height: 250 }}
+                    />
 
-                <BarCodeScanner
-                    onBarCodeScanned={this.handleBarCodeScanned}
-                    style={{ width: 250, height: 250 }}
-                />
+                    <LoadingRequest />
+                </View>
 
 
             </Overlay>
@@ -64,6 +107,7 @@ const mapStatetoProps = (state) => {
     return {
         user: state.user,
         overlayScan: state.overlayScan,
+        loading: state.loading,
     }
 }
 
@@ -84,12 +128,15 @@ const mapDispatchToProps = (dispatch) => {
             })
         },
 
-        setDetailStory: (detail) => {
+
+        setBookItem: (items) => {
             dispatch({
-                type: "setDetailStory",
-                detail: detail
+                type: "setBookItems",
+                item: items
             })
+
         }
+
     }
 }
 

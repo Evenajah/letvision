@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, TextInput, ScrollView, Alert } from 'react-native';
+import { Text, View, TextInput, ScrollView, Alert, ActivityIndicator } from 'react-native';
 
 
 // component
-import { Icon, Button } from 'react-native-elements'
+import { Icon, Button, Image } from 'react-native-elements'
 import LoadingRequest from '../Overlay/LoadingRequest';
 import OverlayScanBarcode from '../Overlay/OverlayScanBarcode';
 
@@ -91,9 +91,6 @@ class FormStory extends React.Component {
 
       }
 
-      // async componentDidMount() {
-      //       this.getPermissionsAsync();
-      //     }
 
 
       getPermissionsCamera = async () => {
@@ -111,18 +108,40 @@ class FormStory extends React.Component {
 
             if (this.state.isbnInput === '' || this.state.isbnInput.length < 13) {
 
-                  Alert.alert('Warning', 'isbn is between 10 - 13 characters')
+                  Alert.alert('Warning', 'ISBN is between 10 - 13 characters')
 
             } else {
-
+                  this.props.setLoading(true);
                   // ยิง api เข้า googlebook
-                  const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=ISBN:';
+                  const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=isbn=';
                   axios.get(apiBook + this.state.isbnInput)
                         .then((response) => {
-                              console.log(response.data);
+
+                              // console.log(response.data.items[0].volumeInfo);
+                              const responseBookItem = response.data.items[0].volumeInfo;
+                            
+
+                              const itemsPatchBook = {
+                                    isbnCode: '',
+                                    titleBookName: responseBookItem.title,
+                                    authorName: responseBookItem.authors[0],
+                                    publishName: responseBookItem.publisher,
+                                    discription: responseBookItem.description,
+                                    // เช็คว่ามีใน Api ที่ยิงไปมั้ย
+                                    image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
+                              }
+
+                              // patch ข้อมูลหนังสือ
+                              this.props.setBookItem(itemsPatchBook);
+
+                              // ปิดการ loading
+                              this.props.setLoading(false);
                         })
                         .catch((error) => {
-                              Alert.alert('Error', error.message)
+                              Alert.alert('Error', error.message);
+
+                              // ปิดการ loading
+                              this.props.setLoading(false);
                         })
             }
       }
@@ -163,7 +182,7 @@ class FormStory extends React.Component {
                                           placeholderTextColor='#fff'
                                           value={this.state.isbnInput}
                                           onChangeText={isbnInput => this.setState({ isbnInput })}
-                                          style={styles.topicForm}
+                                          style={styles.isbnForm}
                                     />
 
                                     <Icon
@@ -193,22 +212,63 @@ class FormStory extends React.Component {
 
                               />
 
-                              <View style={{ backgroundColor: '#708090', marginTop: 30 }}>
+                              <View style={{ backgroundColor: '#708090', marginTop: 30, padding: 20, alignItems: 'center', justifyContent: 'center' }}>
+
+                                    <Image
+                                          source={{ uri: this.props.bookItems.image }}
+                                          style={{ width: 200, height: 200, resizeMode: 'contain', marginBottom: 15 }}
+                                          PlaceholderContent={<ActivityIndicator />}
+                                    />
+
+                                    <TextInput
+                                          placeholder='ชื่อเรื่อง'
+                                          placeholderTextColor='#fff'
+                                          value={this.props.bookItems.titleBookName}
+                                          onChangeText={isbnInput => this.setState({ isbnInput })}
+                                          style={styles.itemsBookForm}
+                                    />
+
+
+                                    <TextInput
+                                          placeholder='ชื่อผู้แต่ง'
+                                          placeholderTextColor='#fff'
+                                          value={this.props.bookItems.authorName}
+                                          onChangeText={isbnInput => this.setState({ isbnInput })}
+                                          style={styles.itemsBookForm}
+                                    />
+
+
+                                    <TextInput
+                                          placeholder='สำนักพิมพ์'
+                                          placeholderTextColor='#fff'
+                                          value={this.props.bookItems.publishName}
+                                          onChangeText={isbnInput => this.setState({ isbnInput })}
+                                          style={styles.itemsBookForm}
+                                    />
+
+
+
                                     <TextInput
                                           multiline={true}
                                           numberOfLines={5}
-                                          value={this.state.detail}
-                                          placeholder='Say something..'
+                                          value={this.props.bookItems.discription}
+                                          placeholder='รายละเอียด...'
                                           placeholderTextColor='#fff'
                                           onChangeText={detail => this.setState({ detail })}
                                           style={styles.textAreaForm}
 
                                     />
 
+
+
                               </View>
 
 
                         </ScrollView>
+
+
+
+
 
                         <View style={styles.btnFormAddStory}>
                               <Icon
@@ -240,7 +300,7 @@ class FormStory extends React.Component {
 
                         <LoadingRequest />
 
-                        <OverlayScanBarcode/>
+                        <OverlayScanBarcode />
 
                   </View>
 
@@ -255,7 +315,8 @@ const mapStatetoProps = (state) => {
             user: state.user,
             overlayCreateStory: state.overlayCreateStory,
             overlayScan: state.overlayScan,
-            loading: state.loading
+            loading: state.loading,
+            bookItems: state.bookItems
       }
 }
 
@@ -281,6 +342,14 @@ const mapDispatchToProps = (dispatch) => {
                   dispatch({
                         type: "setOverlayScan",
                         status: status
+                  })
+
+            },
+
+            setBookItem: (items) => {
+                  dispatch({
+                        type: "setBookItems",
+                        item: items
                   })
 
             }
