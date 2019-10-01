@@ -37,8 +37,6 @@ class OverlayScanBarcode extends React.Component {
         axios.get(apiBook + data)
             .then((response) => {
 
-                console.log(data);
-
 
                 const responseBookItem = response.data.items[0].volumeInfo;
 
@@ -59,7 +57,7 @@ class OverlayScanBarcode extends React.Component {
                 // ปิดการ loading
                 this.props.setLoading(false);
 
-                this.setOverlayScan(false);
+                this.props.setOverlayScan(false);
 
                 this.setState({
                     scanned: false

@@ -1,3 +1,4 @@
+
 // Firebase
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
@@ -9,6 +10,7 @@ const express = require('express');
 const cors = require('cors');
 const user = express();
 const story = express();
+const category = express();
 
 // USer REST APIs
 user.use(cors({ origin: true }));
@@ -172,6 +174,48 @@ story.get('/:id', (req, res) => {
 
 
 
+// Category REST APIs
+category.use(cors({ origin: true }));
+
+// CRUD
+// add Category 
+category.post('/', (req, res) => {
+
+      //add data in db
+      firebase
+            .database()
+            .ref(`/categories/`)
+            .push(
+                  req.body.categoryItem,
+
+            ).getKey();
+
+      res.status(200).send('success');
+
+});
+
+
+
+category.get('/', (req, res) => {
+      var objCategory = [];
+      //query category in db
+      firebase.database().ref(`/categories/`).once('value', (categoryData) => {
+            categoryData.forEach((items => {
+                  objCategory.push({
+                        categoryId: items.key,
+                        categoryValue: items.val()
+                  })
+            
+            }))
+            res.status(200).send(objCategory);
+      })
+});
+
+
+
+
+
+
 
 
 
@@ -179,3 +223,4 @@ story.get('/:id', (req, res) => {
 // Expose Express API as a single Cloud Function:
 exports.user = functions.https.onRequest(user);
 exports.story = functions.https.onRequest(story);
+exports.category = functions.https.onRequest(category);

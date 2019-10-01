@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         marginVertical: 10,
         fontSize: 15,
-        borderBottomColor:'#fff',
+        borderBottomColor: '#fff',
         borderBottomWidth: 1
 
     },
@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 15,
         marginHorizontal: 15,
-        width:300
+        width: 300
     },
 
     headerCreateStoryText: {
@@ -469,7 +469,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginHorizontal: 15,
         marginBottom: 10,
-        width:200
+        width: 200
     },
 
     itemsBookForm: {
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginHorizontal: 15,
         marginBottom: 10,
-        width:300
+        width: 300
     },
 
     btnFormAddStory: {
