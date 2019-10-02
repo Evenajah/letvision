@@ -37,10 +37,11 @@ class FormStory extends React.Component {
                   isbnInput: '',
                   detail: '',
                   categoryItems: [],
-                  language: ''
+                  categorySelect: '',
+             
             }
 
-
+            
       }
 
 
@@ -136,74 +137,87 @@ class FormStory extends React.Component {
 
 
       getPermissionsCamera = async () => {
-                        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+                  const { status } = await Permissions.askAsync(Permissions.CAMERA);
 
-                        if (status === 'granted') {
-                              this.props.setOverlayScan(true);
-                        } else {
-                              Alert.alert('Hey! You heve not enabled selected permissions');
-                        }
-                  };
-
-
-            getBookWithApi = () => {
-
-                  if (this.state.isbnInput === '' || this.state.isbnInput.length < 13) {
-
-                        Alert.alert('Warning', 'ISBN is between 10 - 13 characters')
-
+                  if (status === 'granted') {
+                        this.props.setOverlayScan(true);
                   } else {
-                        this.props.setLoading(true);
-                        // ยิง api เข้า googlebook
-                        const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=isbn=';
+                        Alert.alert('Hey! You heve not enabled selected permissions');
+                  }
+            };
 
 
-                        axios.get(apiBook + this.state.isbnInput)
-                              .then((response) => {
 
-                                    // console.log(response.data.items[0].volumeInfo);
-                                    const responseBookItem = response.data.items[0].volumeInfo;
+      getBookWithApi = () => {
+
+            if (this.state.isbnInput === '' || this.state.isbnInput.length < 10) {
+
+                  Alert.alert('Warning', 'ISBN is between 10 - 13 characters')
+
+            } else {
+                  this.props.setLoading(true);
+                  // ยิง api เข้า googlebook
+                  const apiBook = 'https://www.googleapis.com/books/v1/volumes?q=isbn=';
 
 
-                                    // เช็ค response ว่าตรงกับหนังสือที่ inpuit ไหม
-                                    if (responseBookItem.industryIdentifiers[0].identifier !== this.state.isbnInput) {
+                  axios.get(apiBook + this.state.isbnInput)
+                        .then((response) => {
 
-                                          Alert.alert('Sorry', 'This book dont have in my data');
-                                          this.props.setLoading(false);
+                              // console.log(response.data.items[0].volumeInfo);
+                              const responseBookItem = response.data.items[0].volumeInfo;
 
-                                    } else {
-                                          const itemsPatchBook = {
-                                                isbnCode: '',
-                                                titleBookName: responseBookItem.title,
-                                                authorName: responseBookItem.authors[0],
-                                                publishName: responseBookItem.publisher,
-                                                discription: responseBookItem.description,
-                                                // เช็คว่ามีใน Api ที่ยิงไปมั้ย
-                                                image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
-                                          }
 
-                                          // patch ข้อมูลหนังสือ
-                                          this.props.setBookItem(itemsPatchBook);
+                              // เช็ค response ว่าตรงกับหนังสือที่ inpuit ไหม
+                              if (responseBookItem.industryIdentifiers[0].identifier !== this.state.isbnInput) {
 
-                                          // ปิดการ loading
-                                          this.props.setLoading(false);
+                                    Alert.alert('Sorry', 'This book dont have in my data');
+                                    this.props.setLoading(false);
+
+                              } else {
+                                    const itemsPatchBook = {
+                                          isbnCode: this.state.isbnInput,
+                                          titleBookName: responseBookItem.title,
+                                          authorName: responseBookItem.authors[0],
+                                          publishName: responseBookItem.publisher,
+                                          discription: responseBookItem.description,
+                                          category:  this.state.categorySelect,
+                                          userId: this.props.user.uid,
+                                          // เช็คว่ามีใน Api ที่ยิงไปมั้ย
+                                          image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
                                     }
 
-
-                              })
-                              .catch((error) => {
-                                    Alert.alert('Error', error.message);
+                                    // patch ข้อมูลหนังสือ
+                                    this.props.setBookItem(itemsPatchBook);
 
                                     // ปิดการ loading
                                     this.props.setLoading(false);
-                              })
+                              }
+
+
+                        })
+                        .catch((error) => {
+                              Alert.alert('Error', error.message);
+
+                              // ปิดการ loading
+                              this.props.setLoading(false);
+                        })
                   }
             }
 
 
-
+            
+            addBook = () => {
+                  if(this.props.bookItems.isbnCode === '' || this.props.bookItems.titleBookName === '' || this.props.bookItems.authorName === ''
+                        || this.props.bookItems.publishName === '' || this.props.bookItems.discription === '' || this.state.categorySelect === 'none'
+                        || this.props.bookItems.uid === '' ){
+                        Alert.alert('Warning','Please fill up this form');
+                  }else{
+                        Alert.alert('eiei');
+                  }
+            }
+            
+           
             render() {
-
 
                   return (
                         <View style={{ flex: 1 }}>
@@ -280,12 +294,10 @@ class FormStory extends React.Component {
 
 
                                           <Picker
-                                                selectedValue={this.state.language}
-                                                itemStyle={{fontSize:100}}
-                                                mode={'dropdown'}
+                                                selectedValue={this.state.categorySelect}                                                                                     
                                                 style={{ width: 300 ,backgroundColor: '#2F4F4F',color:'#ffffff',marginBottom:15,borderRadius:15 }}
-                                                onValueChange={(itemValue, itemIndex) =>
-                                                      this.setState({ language: itemValue })
+                                                onValueChange={(itemValue, itemIndex) => 
+                                                            this.setState({categorySelect: itemValue})                                                                                                                                                    
                                                 }>
                                                       
 
@@ -299,7 +311,7 @@ class FormStory extends React.Component {
                                                 placeholder='ชื่อเรื่อง'
                                                 placeholderTextColor='#fff'
                                                 value={this.props.bookItems.titleBookName}
-                                                onChangeText={isbnInput => this.setState({ isbnInput })}
+                                                editable={false}
                                                 style={styles.itemsBookForm}
                                           />
 
@@ -308,7 +320,7 @@ class FormStory extends React.Component {
                                                 placeholder='ชื่อผู้แต่ง'
                                                 placeholderTextColor='#fff'
                                                 value={this.props.bookItems.authorName}
-                                                onChangeText={isbnInput => this.setState({ isbnInput })}
+                                                editable={false}
                                                 style={styles.itemsBookForm}
                                           />
 
@@ -317,7 +329,7 @@ class FormStory extends React.Component {
                                                 placeholder='สำนักพิมพ์'
                                                 placeholderTextColor='#fff'
                                                 value={this.props.bookItems.publishName}
-                                                onChangeText={isbnInput => this.setState({ isbnInput })}
+                                                editable={false}
                                                 style={styles.itemsBookForm}
                                           />
 
@@ -329,7 +341,7 @@ class FormStory extends React.Component {
                                                 value={this.props.bookItems.discription}
                                                 placeholder='รายละเอียด...'
                                                 placeholderTextColor='#fff'
-                                                onChangeText={detail => this.setState({ detail })}
+                                                editable={false}
                                                 style={styles.textAreaForm}
 
                                           />
@@ -365,7 +377,7 @@ class FormStory extends React.Component {
                                           reverse={true}
                                           underlayColor='#FF6347'
                                           containerStyle={{ opacity: 0.8 }}
-                                          onPress={() => this.addStory()}
+                                          onPress={() => this.addBook()}
 
                                     />
 
@@ -427,6 +439,13 @@ class FormStory extends React.Component {
                               item: items
                         })
 
+                  },
+
+                  setCategoryBook: (items) => {
+                        dispatch({
+                              type: "setCategoryBook",
+                              item: items
+                        })
                   }
             }
       }
