@@ -11,6 +11,7 @@ const cors = require('cors');
 const user = express();
 const story = express();
 const category = express();
+const book = express();
 
 // USer REST APIs
 user.use(cors({ origin: true }));
@@ -86,6 +87,41 @@ user.put('/', (req, res) => {
 })
 
 /**************************************************End User API******************************************************* */
+
+// Book REST APIs
+book.use(cors({ origin: true }));
+
+// CRUD
+// add Book
+book.post('/', (req, res) => {
+
+      //add data in db
+      firebase
+            .database()
+            .ref(`/book/`)
+            .push({
+                  isbn: req.body.isbn,
+                  titleBookName: req.body.titleBookName,
+                  authorName: req.body.authorName,
+                  publishName: req.body.publishName,
+                  discription: req.body.discription,
+                  category: req.body.category,
+                  userCreate: req.body.userId,
+                  created_at: req.body.date,
+                  image: req.body.image
+            })
+            .then((response) => {
+                  return res.status(201).send('success');
+            })
+            .catch((error) => {
+                  return res.send(error);
+            })
+
+
+});
+
+
+
 
 // Story REST APIs
 story.use(cors({ origin: true }));
@@ -205,7 +241,7 @@ category.get('/', (req, res) => {
                         categoryId: items.key,
                         categoryValue: items.val()
                   })
-            
+
             }))
             res.status(200).send(objCategory);
       })
@@ -214,13 +250,8 @@ category.get('/', (req, res) => {
 
 
 
-
-
-
-
-
-
 // Expose Express API as a single Cloud Function:
 exports.user = functions.https.onRequest(user);
 exports.story = functions.https.onRequest(story);
 exports.category = functions.https.onRequest(category);
+exports.book = functions.https.onRequest(book);

@@ -28,16 +28,16 @@ import * as Permissions from 'expo-permissions';
 
 
 
-class FormStory extends React.Component {
+class FormBook extends React.Component {
 
       constructor(props) {
 
             super(props);
             this.state = {
                   isbnInput: '',
-                  detail: '',
                   categoryItems: [],
                   categorySelect: '',
+                  book:{}
              
             }
 
@@ -82,60 +82,7 @@ class FormStory extends React.Component {
       }
 
 
-
-      addStory = () => {
-
-                        if (this.state.topic.length < 10 && this.state.detail.length < 10) {
-
-                              Alert.alert('Warning !', 'Minimum of topic is 10 characters and detail is 300 characters.');
-
-                        } else {
-
-                              // Start Loading
-                              this.props.setLoading(true);
-
-
-                              //timestamp
-                              const today = Date.now();
-                              const date = moment(today).format("MMMM Do YYYY, h:mm:ss a");
-
-
-                              //service
-                              const service = 'https://us-central1-letview-db16d.cloudfunctions.net/story';
-                              const addStoryObj = {
-                                    userId: this.props.user.uid,
-                                    topic: this.state.topic,
-                                    detail: this.state.detail,
-                                    created_at: date,
-                                    photoUrl: this.props.user.profile_picture
-                              }
-
-                              axios.post(service, addStoryObj)
-                                    .then((response) => {
-                                          if (response.data === 'success') {
-
-                                                // Stop Loading
-                                                this.props.setLoading(false);
-
-                                                // SetState
-                                                this.setState({
-                                                      topic: '',
-                                                      detail: ''
-                                                })
-
-                                                Alert.alert("Success!", "Succesfully Add Your Book.");
-                                          }
-                                    })
-                                    .catch((err) => {
-                                          Alert.alert("Error!", err.message);
-                                    })
-
-                        }
-
-                  }
-
-
-
+     
       getPermissionsCamera = async () => {
                   const { status } = await Permissions.askAsync(Permissions.CAMERA);
 
@@ -144,7 +91,7 @@ class FormStory extends React.Component {
                   } else {
                         Alert.alert('Hey! You heve not enabled selected permissions');
                   }
-            };
+      }
 
 
 
@@ -163,7 +110,7 @@ class FormStory extends React.Component {
                   axios.get(apiBook + this.state.isbnInput)
                         .then((response) => {
 
-                              // console.log(response.data.items[0].volumeInfo);
+                              // console.log(response.data);
                               const responseBookItem = response.data.items[0].volumeInfo;
 
 
@@ -174,20 +121,22 @@ class FormStory extends React.Component {
                                     this.props.setLoading(false);
 
                               } else {
-                                    const itemsPatchBook = {
-                                          isbnCode: this.state.isbnInput,
-                                          titleBookName: responseBookItem.title,
-                                          authorName: responseBookItem.authors[0],
-                                          publishName: responseBookItem.publisher,
-                                          discription: responseBookItem.description,
-                                          category:  this.state.categorySelect,
-                                          userId: this.props.user.uid,
-                                          // เช็คว่ามีใน Api ที่ยิงไปมั้ย
-                                          image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
-                                    }
+                                   this.setState({
+
+                                    book : {    
+                                                isbn: this.state.isbnInput,
+                                                titleBookName: responseBookItem.title,
+                                                authorName: responseBookItem.authors[0],
+                                                publishName: responseBookItem.publisher,
+                                                discription: responseBookItem.description,
+                                                userId: this.props.user.uid,
+                                                // เช็คว่ามีใน Api ที่ยิงไปมั้ย
+                                                image: !!(responseBookItem.imageLinks) ? responseBookItem.imageLinks.smallThumbnail : 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
+                                          }
+                                    })
 
                                     // patch ข้อมูลหนังสือ
-                                    this.props.setBookItem(itemsPatchBook);
+                                    this.props.setBookItem(this.state.book);
 
                                     // ปิดการ loading
                                     this.props.setLoading(false);
@@ -208,11 +157,52 @@ class FormStory extends React.Component {
             
             addBook = () => {
                   if(this.props.bookItems.isbnCode === '' || this.props.bookItems.titleBookName === '' || this.props.bookItems.authorName === ''
-                        || this.props.bookItems.publishName === '' || this.props.bookItems.discription === '' || this.state.categorySelect === 'none'
-                        || this.props.bookItems.uid === '' ){
+                        || this.props.bookItems.publishName === '' || this.props.bookItems.discription === '' 
+                        || this.state.categorySelect === 'none' || this.props.bookItems.uid === '' ){
                         Alert.alert('Warning','Please fill up this form');
                   }else{
-                        Alert.alert('eiei');
+
+                        // Start Loading
+                        this.props.setLoading(true);
+
+                        const serviceBook = 'https://us-central1-letview-db16d.cloudfunctions.net/book/';
+                          //timestamp
+                        const date = moment(Date.now()).format("MMMM Do YYYY, h:mm:ss a");
+
+                        // objAdd
+                        const objAddBook = {
+                              
+                              ...this.state.book,
+                              category:this.state.categorySelect,
+                              date:date
+                        };
+                                              
+
+                        axios.post(serviceBook, objAddBook)
+                        .then((response) => {
+                              
+                              if(response.data === 'success'){
+                                    this.props.setLoading(false);
+                                    this.props.setBookItem({
+                                          isbnCode: '',
+                                          titleBookName: '',
+                                          authorName: '',
+                                          publishName: '',
+                                          discription: '',
+                                          userId: '',
+                                          image: 'https://cdn.pixabay.com/photo/2018/01/03/09/09/book-3057902_960_720.png'
+                                    });
+                                    this.setState({ isbnInput:'' })
+                                    Alert.alert("Success","Add your book in inventory");
+                                    
+                              }
+                              
+                        })
+                        .catch((error) => {
+                              Alert.alert('Error',error.message)
+                              console.log(error)
+                              this.props.setLoading(false);
+                        })          
                   }
             }
             
@@ -440,14 +430,8 @@ class FormStory extends React.Component {
                         })
 
                   },
-
-                  setCategoryBook: (items) => {
-                        dispatch({
-                              type: "setCategoryBook",
-                              item: items
-                        })
-                  }
+                  
             }
       }
 
-      export default connect(mapStatetoProps, mapDispatchToProps)(FormStory);
+      export default connect(mapStatetoProps, mapDispatchToProps)(FormBook);
