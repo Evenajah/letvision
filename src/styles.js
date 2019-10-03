@@ -30,6 +30,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
 
     },
+    inputBoxUpdateUser: {
+        fontFamily: 'Kanit-Light',
+        width: 220,
+        height: 40,
+        color: '#ffffff',
+        paddingHorizontal: 5,
+        marginVertical: 10,
+        fontSize: 15,
+    
+    },
 
     buttonText: {
         fontFamily: 'Kanit-Light',
@@ -224,7 +234,7 @@ const styles = StyleSheet.create({
     textUserBox: {
         fontFamily: 'Kanit-Light',
         fontSize: 12,
-        color: '#CD5C5C',
+        color: '#2F4F4F',
 
     },
 
@@ -232,7 +242,7 @@ const styles = StyleSheet.create({
     textUserBoxHead: {
         fontFamily: 'Kanit-Light',
         fontSize: 15,
-        color: '#CD5C5C',
+        color: '#2F4F4F',
 
     },
 

@@ -100,7 +100,7 @@ class EditUser extends React.Component {
                     activeOpacity={0.7}
                 />
 
-                <TextInput style={styles.inputBox}
+                <TextInput style={styles.inputBoxUpdateUser}
                     value={this.state.firstname}
                     placeholder='กรอกชื่อของท่าน'
                     underlineColorAndroid='#ffffff'
@@ -108,7 +108,7 @@ class EditUser extends React.Component {
                     onChangeText={firstname => this.setState({ firstname })}
                 />
 
-                <TextInput style={styles.inputBox}
+                <TextInput style={styles.inputBoxUpdateUser}
                     value={this.state.lastname}
                     placeholder='กรอกนามสกุลของท่าน'
                     underlineColorAndroid='#ffffff'

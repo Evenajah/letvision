@@ -352,22 +352,24 @@ class FormBook extends React.Component {
                                           raised
                                           name='backward'
                                           type='font-awesome'
-                                          color='#F08080'
+                                          color='#BEBEBE'
                                           reverse={true}
                                           underlayColor='#FF6347'
                                           containerStyle={{ opacity: 0.8 }}
                                           onPress={() => this.props.setOverlayCreateStory(false)}
+                                          iconStyle={{color:'#2F4F4F'}}
                                     />
 
                                     <Icon
                                           raised
                                           name='check'
                                           type='font-awesome'
-                                          color='#FA8072'
+                                          color='#F5F5F5'
                                           reverse={true}
                                           underlayColor='#FF6347'
                                           containerStyle={{ opacity: 0.8 }}
                                           onPress={() => this.addBook()}
+                                          iconStyle={{color:'#2F4F4F'}}
 
                                     />
 

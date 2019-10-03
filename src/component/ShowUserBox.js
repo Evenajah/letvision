@@ -42,7 +42,7 @@ class ShowUserBox extends React.Component {
                             <Icon
                                 name='user'
                                 type='font-awesome'
-                                color='#CD5C5C'
+                                color='#2F4F4F'
                                 size={15}
 
                             />
@@ -59,7 +59,7 @@ class ShowUserBox extends React.Component {
                             <Icon
                                 name='envelope'
                                 type='font-awesome'
-                                color='#CD5C5C'
+                                color='#2F4F4F'
                                 size={10}
 
                             />
@@ -75,7 +75,7 @@ class ShowUserBox extends React.Component {
                             <Icon
                                 name='th'
                                 type='font-awesome'
-                                color='#CD5C5C'
+                                color='#2F4F4F'
                                 size={13}
 
                             />

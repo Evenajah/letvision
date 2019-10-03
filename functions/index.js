@@ -120,6 +120,54 @@ book.post('/', (req, res) => {
 
 });
 
+// get all book
+book.get('/', (req, res) => {
+
+      var user = firebase.database().ref('/users/');
+      var book = firebase.database().ref('/book/');
+      var category = firebase.database().ref('/categories/');
+
+      book.on('value', (bookData) => {
+
+            var objBook = [];
+
+            bookData.forEach((items => {
+
+                  // ดึง key มาทำ object
+                  var fk = bookData.child(items.key).val();
+
+                  // ยิงหา user ที่ตรงกับ key
+                  user.child(`${fk.userCreate}/personaldata/`).on('value', (userData) => {
+
+                        category.child(`${fk.category}/`).on('value', (categoryData) => {
+                              // เพิ่ม object user ที่ผูกกับ story แล้ว
+                              objBook.push({
+                                    bookId: items.key,
+                                    bookItem: fk,
+                                    userCreate: userData,
+                                    category: categoryData
+                              })
+
+                        })
+
+                  })
+            }))
+
+            res.status(200).send(objBook);
+      }
+
+      )
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
