@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         marginVertical: 10,
         fontSize: 15,
-    
+
     },
 
     buttonText: {
@@ -508,6 +508,21 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#FA8072'
+    },
+
+    // bookList
+    listBook: {
+        flexDirection: 'row',
+        backgroundColor: '#F5F5F5',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        
+        elevation: 24,
     }
 
 
