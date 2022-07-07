@@ -19,7 +19,7 @@
     "firebase": "^6.0.4",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.25",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
